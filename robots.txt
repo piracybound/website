@@ -1,0 +1,11 @@
+User-Agent: Google-Extended
+Disallow: /
+
+User-Agent: FacebookBot
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
