@@ -13,18 +13,28 @@
 </head>
 
 <body>
-  <nav class="sidebar">
-    <h2>piracybound<a href="https://www.piracybound.com/discord" target="_blank" class="discord-link"><img
-          src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6cc3c481a15a141738_icon_clyde_white_RGB.png"
-          alt="Discord Logo" aria-label="Discord"></a></h2>
-    <ul>
-      <li><a href="#vpn">VPNs</a></li>
-      <li><a href="#torrent-clients">Torrent Clients</a></li>
-      <li><a href="#browser-extensions">Browser Extensions</a></li>
-      <li><a href="#software-sites">Software Sites</a></li>
-      <li><a href="#games">Games</a></li>
-      <li><a href="#music">Music</a></li>
-    </ul>
+  <nav class="sidebar-nav">
+    <button class="hamburger" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="sidebar">
+      <h2>piracybound
+        <a href="https://www.piracybound.com/discord" target="_blank" class="discord-link">
+          <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6cc3c481a15a141738_icon_clyde_white_RGB.png"
+               alt="Discord Logo">
+        </a>
+      </h2>
+      <ul>
+        <li><a href="#vpn">VPNs</a></li>
+        <li><a href="#torrent-clients">Torrent Clients</a></li>
+        <li><a href="#browser-extensions">Browser Extensions</a></li>
+        <li><a href="#software-sites">Software Sites</a></li>
+        <li><a href="#games">Games</a></li>
+        <li><a href="#music">Music</a></li>
+      </ul>
+    </div>
   </nav>
   <main class="content">
     <p class="initial-paragraph">
@@ -44,8 +54,10 @@
     </section>
     <section id="torrent-clients" class="section hidden">
       <h3>Torrent Clients</h3>
-      <p>Only recommendation I have is <a href="https://www.qbittorrent.org/">qBittorrent</a> (<a
-          href="https://github.com/qbittorrent/qBittorrent">open-source</a>). It's essentially the standard now. Do
+      <p>
+        Only recommendation I have is
+        <a href="https://www.qbittorrent.org/">qBittorrent</a> (<a
+          href="https://github.com/qbittorrent/qBittorrent">open-source btw</a>). It's essentially the standard now. Do
         <strong>NOT</strong> use µTorrent or BitTorrent. They're known to ship with adware, cryptominers, and spyware.
         <a
           href="https://www.trustedreviews.com/news/utorrent-silently-installing-bundled-bitcoin-mining-software-2931825">¹</a>
@@ -54,51 +66,54 @@
     <section id="browser-extensions" class="section hidden">
       <h3>Browser Extensions</h3>
       <ul>
-        <li><a href="https://github.com/gorhill/uBlock">uBlock Origin</a> - The <strong>best</strong> Ad & Content
-          blocker for Chromium and Firefox.</li>
-        <li><a href="https://fastforward.team/">FastForward</a> - Circumvent link shorteners.</li>
+        <li><a href="https://github.com/gorhill/uBlock">uBlock Origin</a></li>
+        - The <strong>best</strong> Ad & Content blocker for Chromium and Firefox.
+        <li><a href="https://fastforward.team/">FastForward</a></li>
+        - Circumvent link shorteners.
       </ul>
     </section>
     <section id="software-sites" class="section hidden">
       <h3>Software Sites</h3>
       <ul>
-        <li><a href="https://w14.monkrus.ws/">m0nkrus</a> - Trusted Adobe software site. Windows only.</li>
-        <li><a href="https://massgrave.dev/">MAS (Microsoft Activation Scripts)</a> - Your all-in-one solution to
-          activating Windows & Microsoft Office.</li>
+        <li><a href="https://w14.monkrus.ws/">m0nkrus</a></li>
+        - Trusted Adobe software site. Windows only.
+        <li><a href="https://massgrave.dev/">MAS (Microsoft Activation Scripts)</a></li>
+        - Your all-in-one solution to activating Windows & Microsoft Office.
       </ul>
     </section>
     <section id="games" class="section hidden">
       <h3>Games</h3>
       <ul>
-        <li><a href="https://fitgirl-repacks.site/">FitGirl Repacks</a> <strong>(DDL / Torrent)</strong> - One of the
-          most well known and reputable repackers out there. They provide Torrent links with DDL mirrors. Install time
-          can be dependent on the hardware in your computer.</li>
-        <li><a href="https://dodi-repacks.site/">DODI Repacks</a> <strong>(DDL / Torrent)</strong> - Another active
-          repacker that provides Torrent links with DDL mirrors. May take less time to install compared to FitGirl,
-          coming at a cost with slightly larger releases.</li>
+        <li><a href="https://fitgirl-repacks.site/">FitGirl Repacks</a> <strong>(DDL / Torrent)</strong></li>
+        - One of the most well known and reputable repackers out there. They provide Torrent links with DDL mirrors.
+        Install time can be dependent on the hardware in your computer.
+        <li><a href="https://dodi-repacks.site/">DODI Repacks</a> <strong>(DDL / Torrent)</strong></li>
+        - Another active repacker that provides Torrent links with DDL mirrors. May take less time to install compared
+        to FitGirl, coming at a cost with slightly larger releases.
       </ul>
       <ul>
-        <li><a href="https://gog-games.to/">GOG Games</a> <strong>(DDL)</strong> - GOG DRM-free Games, ripped and
-          re-uploaded on Mirrors. Every installer is untouched and has SHA-256 hashes from GOG.</li>
-        <li><a href="https://gamesdrive.net/">GamesDrive</a> <strong>(DDL)</strong> - Re-uploads Repacks, P2P Cracks and
-          Scene Releases to various hosts. Also take requests.</li>
-        <li><a href="https://online-fix.me/">Online-Fix</a> <strong>(DDL / Torrent)</strong> - Provides "Online-Fixes"
-          (Multiplayer) for many Games available; coded by their own Crackers. <strong>Also provides Torrents.</strong>
-        </li>
+        <li><a href="https://gog-games.to/">GOG Games</a> <strong>(DDL)</strong></li>
+        - GOG DRM-free Games, ripped and re-uploaded on Mirrors. Every installer is untouched and has SHA-256 hashes
+        from GOG.
+        <li><a href="https://gamesdrive.net/">GamesDrive</a> <strong>(DDL)</strong></li>
+        - Re-uploads Repacks, P2P Cracks and Scene Releases to various hosts. Also take requests.
+        <li><a href="https://online-fix.me/">Online-Fix</a> <strong>(DDL / Torrent)</strong></li>
+        - Provides "Online-Fixes" (Multiplayer) for many Games available; coded by their own Crackers. <strong>Also
+          provides Torrents.</strong>
       </ul>
       <h4>ROMs</h4>
       <ul>
-        <li><a href="https://vimm.net/vault/">Vimm's Lair: Vault</a> <strong>(DDL / Torrent)</strong> - Download speed's
-          a bit slow. Torrents are provided for larger downloads; see Wii Games.</li>
-        <li><a href="https://nsw2u.xyz/">nsw2u</a> <strong>(DDL)</strong> - NSP / XCI files for Switch Games; Updates
-          included.</li>
+        <li><a href="https://vimm.net/vault/">Vimm's Lair: Vault</a> <strong>(DDL / Torrent)</strong></li>
+        - Download speed's a bit slow. Torrents are provided for larger downloads; see Wii Games.
+        <li><a href="https://nsw2u.xyz/">nsw2u</a> <strong>(DDL)</strong></li>
+        - NSP / XCI files for Switch Games; Updates included.
       </ul>
     </section>
     <section id="music" class="section hidden">
       <h3>Music</h3>
       <ul>
-        <li><a href="https://lucida.to">lucida.to</a> - Absolutely goated music downloader, a merger of Slavart &
-          DoubleDouble.</li>
+        <li><a href="https://lucida.to">lucida.to</a></li>
+        - Absolutely goated music downloader, a merger of Slavart & DoubleDouble.
       </ul>
     </section>
     <hr />
@@ -111,7 +126,7 @@
         document.getElementById("last-edited").innerText = date.toLocaleString();
       };
     </script>
-    <script src="../assets/visual.min.js" async></script>
+    <script src="assets/visual.min.js"></script>
 </body>
 
 </html>
