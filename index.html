@@ -1,244 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>piracybound</title>
-  <meta name="description" content="The last guide you'll ever need.">
-  <meta name="theme-color" content="#2e3338">
-  <meta name="author" content="uchks">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/uchks/ggcdn@master/ggsans.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'brand-dark': '#2e3338',
-            'brand-neon': '#0ff',
-            'brand-accent': '#ff0066'
-          },
-          animation: {
-            'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'wiggle': 'wiggle 1s ease-in-out infinite'
-          },
-          keyframes: {
-            wiggle: {
-              '0%, 100%': { transform: 'rotate(-3deg)' },
-              '50%': { transform: 'rotate(3deg)' },
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>piracybound</title>
+    <meta name="description" content="The last guide you'll ever need.">
+    <meta name="theme-color" content="#2e3338">
+    <meta name="author" content="uchks">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/uchks/ggcdn@master/ggsans.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#2e3338',
+                        'brand-neon': '#0ff',
+                        'brand-accent': '#ff0066'
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
-  <style>
-    body {
-      background: linear-gradient(45deg, #121212, #2e3338);
-      color: #f0f0f0;
-    }
-    .hamburger .bar {
-      transition: all 0.3s ease;
-    }
-    .hamburger:hover .bar {
-      background-color: #0ff;
-    }
-    .section {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-    .section:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0,255,255,0.2);
-    }
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: #0ff;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after {
-      width: 100%;
-    }
-  </style>
+    </script>
+    <style>
+        body {
+            background: linear-gradient(45deg, #121212, #2e3338);
+            color: #f0f0f0;
+        }
+
+        .hamburger .bar {
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover .bar {
+            background-color: #0ff;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #0ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .sidebar-nav {
+            /* Remove transform by default for desktop */
+            transform: none;
+            background: rgba(46, 51, 56, 0.95);
+            /* Making it slightly transparent */
+            z-index: 50;
+        }
+
+        .content {
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 4xl;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 16rem;
+                /* 64 in tailwind units */
+            }
+        }
+
+        /* Only hide nav on mobile */
+        @media (max-width: 768px) {
+            .sidebar-nav {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
 </head>
 
-<body class="min-h-screen">
-    <nav class="sidebar-nav fixed top-0 left-0 w-64 h-full bg-brand-dark transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
-      <button class="hamburger absolute top-4 right-4 space-y-1 z-60" aria-label="Toggle menu">
-        <span class="bar block w-6 h-1 bg-brand-neon"></span>
-        <span class="bar block w-6 h-1 bg-brand-neon"></span>
-        <span class="bar block w-6 h-1 bg-brand-neon"></span>
-      </button>
-      <div class="sidebar p-6 mt-16">
-        <h2 class="text-2xl font-bold mb-4 text-brand-neon animate-pulse">piracybound
-          <a href="https://www.piracybound.com/discord" target="_blank" class="discord-link ml-2 inline-block animate-wiggle">
-            <img
-              src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6cc3c481a15a141738_icon_clyde_white_RGB.png"
-              alt="Discord Logo" class="w-6 h-6 inline-block"
-            >
-          </a>
-        </h2>
-        <ul class="space-y-2">
-          <li><a href="#vpn" class="nav-link text-brand-neon hover:text-white">VPNs</a></li>
-          <li><a href="#torrent-clients" class="nav-link text-brand-neon hover:text-white">Torrent Clients</a></li>
-          <li><a href="#browser-extensions" class="nav-link text-brand-neon hover:text-white">Browser Extensions</a></li>
-          <li><a href="#software-sites" class="nav-link text-brand-neon hover:text-white">Software Sites</a></li>
-          <li><a href="#streaming-sites" class="nav-link text-brand-neon hover:text-white">Streaming Sites</a></li>
-          <li><a href="#games" class="nav-link text-brand-neon hover:text-white">Games</a></li>
-          <li><a href="#music" class="nav-link text-brand-neon hover:text-white">Music</a></li>
-        </ul>
-      </div>
+<div class="min-h-screen">
+    <nav
+        class="sidebar-nav fixed top-0 left-0 w-64 h-full bg-brand-dark transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <button class="hamburger absolute top-4 right-4 space-y-1 z-60" aria-label="Toggle menu">
+            <span class="bar block w-6 h-1 bg-brand-neon"></span>
+            <span class="bar block w-6 h-1 bg-brand-neon"></span>
+            <span class="bar block w-6 h-1 bg-brand-neon"></span>
+        </button>
+        <div class="sidebar p-6 mt-16">
+            <h2 class="text-2xl font-bold mb-4 text-brand-neon animate-pulse">piracybound
+                <a href="https://www.piracybound.com/discord" target="_blank"
+                    class="discord-link ml-2 inline-block animate-wiggle">
+                    <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a6cc3c481a15a141738_icon_clyde_white_RGB.png"
+                        alt="Discord Logo" class="w-6 h-6 inline-block">
+                </a>
+            </h2>
+            <ul class="space-y-2">
+                <li><a href="#vpn" class="nav-link text-brand-neon hover:text-white">VPNs</a></li>
+                <li><a href="#torrent-clients" class="nav-link text-brand-neon hover:text-white">Torrent Clients</a>
+                </li>
+                <li><a href="#browser-extensions" class="nav-link text-brand-neon hover:text-white">Browser
+                        Extensions</a></li>
+                <li><a href="#software-sites" class="nav-link text-brand-neon hover:text-white">Software Sites</a></li>
+                <li><a href="#streaming-sites" class="nav-link text-brand-neon hover:text-white">Streaming Sites</a>
+                </li>
+                <li><a href="#games" class="nav-link text-brand-neon hover:text-white">Games</a></li>
+                <li><a href="#music" class="nav-link text-brand-neon hover:text-white">Music</a></li>
+            </ul>
+        </div>
     </nav>
 
-  <main class="content ml-0 md:ml-64 p-6 max-w-4xl mx-auto">
-    <p class="initial-paragraph mb-6 section p-6 rounded-lg">
-      This website is intended to serve as a guide for individuals seeking information on piracy. As a proponent of
-      piracy, I am utilizing my platform to educate others. I hold the view that if purchasing does not equate to
-      ownership, then piracy should not be equated with theft. Presented herein is a curated list of reliable websites
-      and software for pirating.
-      <br>
-      <br>
-      <strong class="text-brand-accent">Why the name piracybound?</strong><br>
-      This name was purely influenced by an old friend group, and an old discord server called "landbound".
-    </p>
+    <div class="ml-0 md:ml-64 p-6">
+        <p class="initial-paragraph mb-6 section p-6 rounded-lg">
+            This website is intended to serve as a guide for individuals seeking information on piracy. As a proponent
+            of
+            piracy, I am utilizing my platform to educate others. I hold the view that if purchasing does not equate to
+            ownership, then piracy should not be equated with theft. Presented herein is a curated list of reliable
+            websites
+            and software for pirating.
+            <br>
+            <br>
+            <strong class="text-brand-accent">Why the name piracybound?</strong><br>
+            This name was purely influenced by an old friend group, and an old discord server called "landbound".
+        </p>
+    </div>
+    <main class="content ml-0 md:ml-64 p-6 max-w-4xl mx-auto">
+        <section id="vpn" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4 text-brand-neon">VPNs</h3>
+            <ul>
+                <li><a href="https://mullvad.net/" class="text-brand-neon hover:text-white">Mullvad</a> - Arguably the
+                    best VPN available</li>
+                <li><a href="https://protonvpn.com/" class="text-brand-neon hover:text-white">ProtonVPN</a> - Supports
+                    port forwarding</li>
+            </ul>
+        </section>
 
-    <section id="vpn" class="section mb-6 p-6 rounded-lg">
-        <h3 class="text-2xl font-semibold mb-4 text-brand-neon">VPNs</h3>
-        <ul>
-          <li><a href="https://mullvad.net/" class="text-brand-neon hover:text-white">Mullvad</a> - Arguably the best VPN available</li>
-          <li><a href="https://protonvpn.com/" class="text-brand-neon hover:text-white">ProtonVPN</a> - Supports port forwarding</li>
-        </ul>
-      </section>
+        <section id="torrent-clients" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Torrent Clients</h3>
+            <p>
+                Only recommendation I have is
+                <a href="https://www.qbittorrent.org/">qBittorrent</a> (<a
+                    href="https://github.com/qbittorrent/qBittorrent">open-source btw</a>). It's essentially the
+                standard now. Do
+                <strong>NOT</strong> use µTorrent or BitTorrent. They're known to ship with adware, cryptominers, and
+                spyware.
+                <a
+                    href="https://www.trustedreviews.com/news/utorrent-silently-installing-bundled-bitcoin-mining-software-2931825">¹</a>
+            </p>
+        </section>
 
-    <section id="torrent-clients" class="section mb-6 p-6 rounded-lg">
-      <h3 class="text-2xl font-semibold mb-4">Torrent Clients</h3>
-      <p>
-        Only recommendation I have is
-        <a href="https://www.qbittorrent.org/">qBittorrent</a> (<a
-          href="https://github.com/qbittorrent/qBittorrent">open-source btw</a>). It's essentially the standard now. Do
-        <strong>NOT</strong> use µTorrent or BitTorrent. They're known to ship with adware, cryptominers, and spyware.
-        <a
-          href="https://www.trustedreviews.com/news/utorrent-silently-installing-bundled-bitcoin-mining-software-2931825">¹</a>
-      </p>
-    </section>
+        <section id="browser-extensions" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Browser Extensions</h3>
+            <ul>
+                <li><a href="https://github.com/gorhill/uBlock">uBlock Origin</a></li>
+                - The <strong>best</strong> Ad & Content blocker for Chromium and Firefox.
+                <li><a href="https://fastforward.team/">FastForward</a></li>
+                - Circumvent link shorteners.
+            </ul>
+        </section>
 
-    <section id="browser-extensions" class="section mb-6 p-6 rounded-lg">
-      <h3 class="text-2xl font-semibold mb-4">Browser Extensions</h3>
-      <ul>
-        <li><a href="https://github.com/gorhill/uBlock">uBlock Origin</a></li>
-        - The <strong>best</strong> Ad & Content blocker for Chromium and Firefox.
-        <li><a href="https://fastforward.team/">FastForward</a></li>
-        - Circumvent link shorteners.
-      </ul>
-    </section>
+        <section id="software-sites" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Software Sites</h3>
+            <ul>
+                <li><a href="https://w14.monkrus.ws/">m0nkrus</a></li>
+                - Trusted Adobe software site. Windows only.
+                <li><a href="https://massgrave.dev/">MAS (Microsoft Activation Scripts)</a></li>
+                - Your all-in-one solution to activating Windows & Microsoft Office.
+            </ul>
+        </section>
 
-    <section id="software-sites" class="section mb-6 p-6 rounded-lg">
-      <h3 class="text-2xl font-semibold mb-4">Software Sites</h3>
-      <ul>
-        <li><a href="https://w14.monkrus.ws/">m0nkrus</a></li>
-        - Trusted Adobe software site. Windows only.
-        <li><a href="https://massgrave.dev/">MAS (Microsoft Activation Scripts)</a></li>
-        - Your all-in-one solution to activating Windows & Microsoft Office.
-      </ul>
-    </section>
+        <section id="streaming-sites" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Streaming Sites / Programs</h3>
+            <h4 class="text-xl font-semibold mb-2">Anime</h4>
+            <ul>
+                <li><a href="https://hianime.to/">HiAnime</a></li>
+                <li><a href="https://anicrush.to/">AniCrush</a></li>
+                <li><a href="https://github.com/NoCrypt/migu">Migu</a></li> - a fork of <a
+                    href="https://github.com/ThaUnknown/miru/">Miru</a>
+            </ul>
+            <h4 class="text-xl font-semibold mb-2 mt-4">Sports</h4>
+            <ul>
+                <li><a href="https://the.streameast.app/">StreamEast</a></li>
+                <li><a href="https://sportsurge.net/">Sportsurge</a></li>
+            </ul>
+        </section>
 
-    <section id="streaming-sites" class="section mb-6 p-6 rounded-lg">
-      <h3 class="text-2xl font-semibold mb-4">Streaming Sites / Programs</h3>
-      <h4 class="text-xl font-semibold mb-2">Anime</h4>
-      <ul>
-        <li><a href="https://hianime.to/">HiAnime</a></li>
-        <li><a href="https://anicrush.to/">AniCrush</a></li>
-        <li><a href="https://github.com/NoCrypt/migu">Migu</a></li> - a fork of <a href="https://github.com/ThaUnknown/miru/">Miru</a>
-      </ul>
-      <h4 class="text-xl font-semibold mb-2 mt-4">Sports</h4>
-      <ul>
-        <li><a href="https://the.streameast.app/">StreamEast</a></li>
-        <li><a href="https://sportsurge.net/">Sportsurge</a></li>
-      </ul>
-    </section>
+        <section id="games" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Games</h3>
+            <ul>
+                <li><a href="https://fitgirl-repacks.site/">FitGirl Repacks</a> <strong>(DDL / Torrent)</strong></li>
+                - One of the most well known and reputable repackers out there. They provide Torrent links with DDL
+                mirrors.
+                Install time can be dependent on the hardware in your computer.
+                <li><a href="https://dodi-repacks.site/">DODI Repacks</a> <strong>(DDL / Torrent)</strong></li>
+                - Another active repacker that provides Torrent links with DDL mirrors. May take less time to install
+                compared
+                to FitGirl, coming at a cost with slightly larger releases.
+            </ul>
+            <ul>
+                <li><a href="https://gog-games.to/">GOG Games</a>, <a
+                        href="http://goggamespyi7b6ybpnpnlwhb4md6owgbijfsuj6z5hesqt3yfyz42rad.onion/">.onion</a>
+                    <strong>(DDL)</strong>
+                </li>
+                - GOG DRM-free Games, ripped and re-uploaded on Mirrors. Every installer is untouched and has SHA-256
+                hashes
+                from GOG.
+                <li><a href="https://gamesdrive.net/">GamesDrive</a> <strong>(DDL)</strong></li>
+                - Re-uploads Repacks, P2P Cracks and Scene Releases to various hosts. Also take requests.
+                <li><a href="https://online-fix.me/">Online-Fix</a> <strong>(DDL / Torrent)</strong></li>
+                - Provides "Online-Fixes" (Multiplayer) for many Games available; coded by their own Crackers.
+                <strong>Also
+                    provides Torrents.</strong>
+                <li><a href="https://cs.rin.ru/forum/">CS.RIN.RU</a>, <a
+                        href="http://csrinrutkb3tshptdctl5lyei4et35itl22qvk5ktdcat6aeavy6nhid.onion/forum">.onion</a>
+                    <strong>(DDL)</strong>
+                </li>
+                - Arguably the best forum for Game Piracy. <strong>REQUIRES AN ACCOUNT.</strong>
+            </ul>
+            <h4 class="text-xl font-semibold mb-2 mt-4">ROMs</h4>
+            <ul>
+                <li><a href="https://vimm.net/vault/">Vimm's Lair: Vault</a> <strong>(DDL / Torrent)</strong></li>
+                - Download speed's a bit slow. Torrents are provided for larger downloads; see Wii Games.
+                <li><a href="https://nsw2u.xyz/">nsw2u</a> <strong>(DDL)</strong></li>
+                - NSP / XCI files for Switch Games; Updates included.
+                <li><a href="https://nopaystation.com/">NoPayStation</a> <strong>(DDL)</strong></li>
+                - The best source for PSP, PS3, and PS Vita content. A database of games from Sony's CDN along with
+                decryption keys.
+            </ul>
+        </section>
 
-    <section id="games" class="section mb-6 p-6 rounded-lg">
-      <h3 class="text-2xl font-semibold mb-4">Games</h3>
-      <ul>
-        <li><a href="https://fitgirl-repacks.site/">FitGirl Repacks</a> <strong>(DDL / Torrent)</strong></li>
-        - One of the most well known and reputable repackers out there. They provide Torrent links with DDL mirrors.
-        Install time can be dependent on the hardware in your computer.
-        <li><a href="https://dodi-repacks.site/">DODI Repacks</a> <strong>(DDL / Torrent)</strong></li>
-        - Another active repacker that provides Torrent links with DDL mirrors. May take less time to install compared
-        to FitGirl, coming at a cost with slightly larger releases.
-      </ul>
-      <ul>
-        <li><a href="https://gog-games.to/">GOG Games</a>, <a href="http://goggamespyi7b6ybpnpnlwhb4md6owgbijfsuj6z5hesqt3yfyz42rad.onion/">.onion</a> <strong>(DDL)</strong></li>
-        - GOG DRM-free Games, ripped and re-uploaded on Mirrors. Every installer is untouched and has SHA-256 hashes
-        from GOG.
-        <li><a href="https://gamesdrive.net/">GamesDrive</a> <strong>(DDL)</strong></li>
-        - Re-uploads Repacks, P2P Cracks and Scene Releases to various hosts. Also take requests.
-        <li><a href="https://online-fix.me/">Online-Fix</a> <strong>(DDL / Torrent)</strong></li>
-        - Provides "Online-Fixes" (Multiplayer) for many Games available; coded by their own Crackers. <strong>Also
-          provides Torrents.</strong>
-        <li><a href="https://cs.rin.ru/forum/">CS.RIN.RU</a>, <a href="http://csrinrutkb3tshptdctl5lyei4et35itl22qvk5ktdcat6aeavy6nhid.onion/forum">.onion</a> <strong>(DDL)</strong></li>
-        - Arguably the best forum for Game Piracy. <strong>REQUIRES AN ACCOUNT.</strong>
-      </ul>
-      <h4 class="text-xl font-semibold mb-2 mt-4">ROMs</h4>
-      <ul>
-        <li><a href="https://vimm.net/vault/">Vimm's Lair: Vault</a> <strong>(DDL / Torrent)</strong></li>
-        - Download speed's a bit slow. Torrents are provided for larger downloads; see Wii Games.
-        <li><a href="https://nsw2u.xyz/">nsw2u</a> <strong>(DDL)</strong></li>
-        - NSP / XCI files for Switch Games; Updates included.
-        <li><a href="https://nopaystation.com/">NoPayStation</a> <strong>(DDL)</strong></li>
-        - The best source for PSP, PS3, and PS Vita content. A database of games from Sony's CDN along with decryption keys. 
-      </ul>
-    </section>
+        <section id="music" class="section mb-6 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Music</h3>
+            <ul>
+                <li><a href="https://lucida.to">lucida.to</a> ,<a href="https://lucida.su">.su</a></li>
+                - Absolutely goated music downloader, a merger of Slavart & DoubleDouble.
+                <li><a href="https://doubledouble.top/">doubledouble.top</a></li>
+                - Supports services lucida does not. <strong>Note: Will remain online until everything supported is in
+                    lucida. Once lucida completely supports a service, the service will be disabled.</strong>
+            </ul>
+        </section>
 
-    <section id="music" class="section mb-6 p-6 rounded-lg">
-      <h3 class="text-2xl font-semibold mb-4">Music</h3>
-      <ul>
-        <li><a href="https://lucida.to">lucida.to</a> ,<a href="https://lucida.su">.su</a></li>
-        - Absolutely goated music downloader, a merger of Slavart & DoubleDouble.
-        <li><a href="https://doubledouble.top/">doubledouble.top</a></li>
-        - Supports services lucida does not. <strong>Note: Will remain online until everything supported is in lucida. Once lucida completely supports a service, the service will be disabled.</strong>
-      </ul>
-    </section>
+        <hr class="border-brand-neon my-6" />
+        <sub class="text-brand-neon">© piracybound 2024 // <a href="mailto:jason@piracybound.com"
+                class="hover:text-white">jason@piracybound.com</a> - Last Edited: <span
+                id="last-edited">1730594760</span></sub>
+    </main>
 
-    <hr class="border-brand-neon my-6" />
-    <sub class="text-brand-neon">© piracybound 2024 // <a href="mailto:jason@piracybound.com" class="hover:text-white">jason@piracybound.com</a> - Last Edited: <span
-        id="last-edited">1730594760</span></sub>
-  </main>
+    <script>
+        window.onload = function () {
+            var unixTimestamp = parseInt(document.getElementById("last-edited").innerText);
+            var date = new Date(unixTimestamp * 1000);
+            document.getElementById("last-edited").innerText = date.toLocaleString();
+        };
 
-  <script>
-    window.onload = function () {
-      var unixTimestamp = parseInt(document.getElementById("last-edited").innerText);
-      var date = new Date(unixTimestamp * 1000);
-      document.getElementById("last-edited").innerText = date.toLocaleString();
-    };
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function () {
+            const sideNav = document.querySelector('.sidebar-nav');
+            sideNav.classList.toggle('-translate-x-full');
+        });
 
-    // Mobile menu toggle
-    document.querySelector('.hamburger').addEventListener('click', function() {
-      const sideNav = document.querySelector('.sidebar-nav');
-      sideNav.classList.toggle('-translate-x-full');
-    });
+        // Smooth scrolling for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+    <script src="assets/visual.min.js"></script>
+</div>
 
-    // Smooth scrolling for nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-  </script>
-  <script src="assets/visual.min.js"></script>
-</body>
 </html>
