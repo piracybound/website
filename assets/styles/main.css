@@ -82,7 +82,7 @@ hr {
     padding: 10px;
 }
 
-.hamburger .bar {
+.hamburger {
     display: block;
     width: 24px;
     height: 3px;
