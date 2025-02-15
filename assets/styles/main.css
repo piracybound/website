@@ -82,13 +82,6 @@ hr {
     padding: 10px;
 }
 
-.hamburger {
-    display: block;
-    width: 24px;
-    height: 3px;
-    background-color: #fff;
-    margin: 5px 0;
-}
 
 .sidebar {
     position: fixed;
