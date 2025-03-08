@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>piracybound</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#121212',
+                        'bg-light': '#ffffff',
+                        'text-dark': '#e0e0e0',
+                        'text-light': '#1a1a1a',
+                    },
+                    backgroundImage: {
+                        'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-background {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+        .sidebar-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
+        }
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-bg-dark text-text-dark min-h-screen">
+    <div class="flex min-h-screen">
+        <button id="mobile-menu-toggle" class="fixed top-4 left-4 z-50 md:hidden">
+            <svg class="w-6 h-6 text-text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-bg-dark glass-background transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 overflow-y-auto sidebar-scroll">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-8 flex items-center">
+                    piracybound
+                    <a href="https://www.piracybound.com/discord" class="ml-2 opacity-70 hover:opacity-100 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M20.317 4.3698a19.7925 19.7925 0 00-4.8995-1.5459.0741.0741 0 00-.0787.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8423-.2762-3.68-.2762-5.4981 0-.1636-.3959-.4096-.8854-.6227-1.2495a.077.077 0 00-.0788-.037 19.7303 19.7303 0 00-4.8993 1.5459.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4205 5.9868 3.0294a.077.077 0 00.0842-.0276c.4616-.6304.8734-1.2952 1.226-1.9971a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8905a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3714-.2914a.0743.0743 0 01.0776-.0105c3.9284 1.7916 8.18 1.7916 12.0614 0a.0739.0739 0 01.0785.0095c.1198.099.246.1981.3718.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8883.0766.0766 0 00-.0407.1058c.3552.6978.7637 1.3626 1.2235 1.9929a.0765.0765 0 00.0842.0276c1.9508-.6086 3.9393-1.5215 6.0024-3.0294a.077.077 0 00.0313-.0552c.4844-5.2286-.8349-9.7456-3.5256-13.7321a.061.061 0 00-.0312-.0278zM8.02 15.3312c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9555-2.4188 2.157-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9555 2.4188-2.1569 2.4188zm7.9327 0c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9554-2.4188 2.1569-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9436 2.4188-2.1568 2.4188z"/>
+                        </svg>
+                    </a>
+                </h2>
+                <nav>
+                    <ul class="space-y-3">
+                        <li><a href="#vpn" data-section="vpn" class="nav-link">VPNs</a></li>
+                        <li><a href="#torrent-clients" data-section="torrent-clients" class="nav-link">Torrent Clients</a></li>
+                        <li><a href="#browser-extensions" data-section="browser-extensions" class="nav-link">Browser Extensions</a></li>
+                        <li><a href="#software-sites" data-section="software-sites" class="nav-link">Software Sites</a></li>
+                        <li><a href="#streaming-sites" data-section="streaming-sites" class="nav-link">Streaming Sites</a></li>
+                        <li><a href="#games" data-section="games" class="nav-link">Games</a></li>
+                        <li><a href="#music" data-section="music" class="nav-link">Music</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <main class="flex-1 md:ml-64 p-6 md:p-12 lg:p-16 transition-all duration-300">
+            <div class="max-w-3xl mx-auto glass-background rounded-xl p-6 md:p-10 shadow-2xl">
+                <div id="initial-content" class="content-section active">
+                    <p class="text-lg mb-6 leading-relaxed">
+                        This website is intended to serve as a guide for individuals seeking information on piracy. As a proponent of piracy, I am utilizing my platform to educate others. I hold the view that if purchasing does not equate to ownership, then piracy should not be equated with theft. Presented herein is a curated list of reliable websites and software for pirating.
+                        <br><br>
+                        <strong class="text-xl">Why the name piracybound?</strong><br>
+                        This name was purely influenced by an old friend group, and an old discord server called "landbound".
+                    </p>
+                </div>
+
+                <div id="content-area">
+                    <div id="vpn" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">VPNs</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://mullvad.net/" class="text-blue-400 hover:underline">Mullvad</a> - Arguably the best VPN available, but doesn't support port forwarding. Based in Sweden.
+                            </li>
+                            <li>
+                                <a href="https://protonvpn.com/" class="text-blue-400 hover:underline">ProtonVPN</a> - Supports port forwarding, based in Switzerland.
+                            </li>
+                            <li>
+                                <a href="https://1.1.1.1/" class="text-blue-400 hover:underline">CloudFlare Warp</a> - Doesn't support port forwarding, but virtually free. Ideally used with Wireguard.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="torrent-clients" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">Torrent Clients</h3>
+                        <p>
+                            Only recommendation I have is <a href="https://www.qbittorrent.org/" class="text-blue-400 hover:underline">qBittorrent</a> (open-source). It's essentially the standard now. Do <strong>NOT</strong> use µTorrent or BitTorrent. They're known to ship with adware, cryptominers, and spyware.
+                        </p>
+                    </div>
+
+                    <div id="browser-extensions" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">Browser Extensions</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://github.com/gorhill/uBlock" class="text-blue-400 hover:underline">uBlock Origin</a> - The <strong>best</strong> Ad & Content blocker for Chromium and Firefox.
+                            </li>
+                            <li>
+                                <a href="https://fastforward.team/" class="text-blue-400 hover:underline">FastForward</a> - Circumvent link shorteners.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="software-sites" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">Software Sites</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://w14.monkrus.ws/" class="text-blue-400 hover:underline">m0nkrus</a> - Trusted Adobe software site. Windows only.
+                            </li>
+                            <li>
+                                <a href="https://massgrave.dev/" class="text-blue-400 hover:underline">MAS (Microsoft Activation Scripts)</a> - Your all-in-one solution to activating Windows & Microsoft Office.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="streaming-sites" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">Streaming Sites</h3>
+                        <div class="mb-4">
+                            <h4 class="text-xl font-semibold mb-2">Anime</h4>
+                            <ul class="space-y-2">
+                                <li><a href="https://hianime.to/" class="text-blue-400 hover:underline">HiAnime</a></li>
+                                <li><a href="https://anicrush.to/" class="text-blue-400 hover:underline">AniCrush</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">Sports</h4>
+                            <ul class="space-y-2">
+                                <li><a href="https://the.streameast.app/" class="text-blue-400 hover:underline">StreamEast</a></li>
+                                <li><a href="https://sportsurge.net/" class="text-blue-400 hover:underline">Sportsurge</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="games" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">Games</h3>
+                        <div class="mb-4">
+                            <h4 class="text-xl font-semibold mb-2">Game Repos</h4>
+                            <ul class="space-y-3">
+                                <li>
+                                    <a href="https://fitgirl-repacks.site/" class="text-blue-400 hover:underline">FitGirl Repacks</a> <strong>(DDL / Torrent)</strong> - One of the most well known and reputable repackers.
+                                </li>
+                                <li>
+                                    <a href="https://dodi-repacks.site/" class="text-blue-400 hover:underline">DODI Repacks</a> <strong>(DDL / Torrent)</strong> - Another active repacker.
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-2">ROMs</h4>
+                            <ul class="space-y-3">
+                                <li>
+                                    <a href="https://vimm.net/vault/" class="text-blue-400 hover:underline">Vimm's Lair: Vault</a> <strong>(DDL / Torrent)</strong>
+                                </li>
+                                <li>
+                                    <a href="https://nopaystation.com/" class="text-blue-400 hover:underline">NoPayStation</a> <strong>(DDL)</strong> - Best source for PSP, PS3, and PS Vita content.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="music" class="content-section">
+                        <h3 class="text-2xl font-semibold mb-4">Music</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://lucida.to" class="text-blue-400 hover:underline">lucida.to</a> - Absolutely goated music downloader, a merger of Slavart & DoubleDouble.
+                            </li>
+                            <li>
+                                <a href="https://doubledouble.top/" class="text-blue-400 hover:underline">doubledouble.top</a> - Supports services lucida does not.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-8 border-opacity-20">
+                <footer class="text-sm opacity-70 flex justify-between items-center">
+                    <span>© piracybound 2024</span>
+                    <a href="mailto:jason@piracybound.com" class="hover:underline">jason@piracybound.com</a>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        mobileMenuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const initialContent = document.getElementById('initial-content');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSectionId = link.getAttribute('data-section');
+                
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                initialContent.classList.remove('active');
+
+                const targetSection = document.getElementById(targetSectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+    </script>
+</body>
+</html>
