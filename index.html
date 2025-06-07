@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,56 +7,281 @@
     <title>piracybound</title>
     <meta name="description" content="piracybound - your guide to digital freedom.">
     <meta name="author" content="piracybound">
-    <meta name="theme-color" content="#121212">
+    <meta name="theme-color" content="#000000">
     <link rel="icon" href="https://www.piracybound.com/favicon.ico" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script lang="javascript">
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#121212',
-                        'secondary': '#e0e0e0',
-                        'accent': '#1a1a1a',
-                    },
-                    backgroundImage: {
-                        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))'
-                    }
-                }
-            }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-blue: #3b82f6;
+            --sidebar-width: 256px;
         }
-    </script>
-    <style lang="css">
-        @font-face {
-            font-family: 'Inter';
-            font-display: swap;
-            src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             scroll-behavior: smooth;
-            color-scheme: dark;
         }
 
-        .glass-bg {
+        body {
+            background: #000;
+            color: var(--text-secondary);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: -50%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+            animation: gradientShift 30s ease infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                transform: rotate(0deg) scale(1.2);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.4);
+            }
+        }
+
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        #sidebar {
+            position: fixed;
+            left: 0;
+            width: var(--sidebar-width);
+            z-index: 40;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            transform: translateX(0);
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-content-card {
+            max-width: 896px;
+            margin-left: auto;
+            margin-right: auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-inner {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .sidebar-header a {
+            color: var(--text-secondary);
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-header a:hover {
+            color: var(--text-primary);
+            transform: scale(1.1);
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-link:hover {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: var(--text-primary);
+            transform: translateX(4px);
         }
 
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--text-primary);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        li {
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+
+        a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        .main-content-card footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+        }
+
+        #mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 50;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
         .scrollbar-thin {
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
         }
 
         .scrollbar-thin::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
 
         .scrollbar-thin::-webkit-scrollbar-track {
@@ -64,285 +289,341 @@
         }
 
         .scrollbar-thin::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            transition: background-color 0.2s;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
         }
 
         .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        #manilua-ad {
+            position: fixed;
+            left: 1.5rem;
+            bottom: 1.5rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            max-width: 320px;
+            
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+            
+            animation: fadeInAd 0.5s ease 1s backwards;
+        }
+
+        @keyframes fadeInAd {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #manilua-ad:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        #manilua-ad img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        #manilua-ad .ad-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #manilua-ad .ad-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        #manilua-ad .ad-body {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 768px) {
+            #mobile-menu-toggle {
+                display: inline-flex;
+            }
+
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            #sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem 1rem;
+            }
+
+            .main-content-card {
+                padding: 1.5rem;
+            }
+
+            .main-content-card footer {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            #manilua-ad {
+                display: none;
+            }
         }
     </style>
 </head>
 
-<body class="bg-primary text-secondary min-h-screen">
-    <div class="flex min-h-screen">
-        <button id="mobile-menu-toggle" class="fixed top-4 left-4 z-50 md:hidden focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<body>
+    <div class="page-wrapper">
+        <button id="mobile-menu-toggle" aria-label="Toggle Menu">
+            <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                 </path>
             </svg>
         </button>
 
-        <nav id="sidebar"
-            class="fixed inset-y-0 left-0 w-64 bg-primary glass-bg transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 overflow-y-auto scrollbar-thin">
-            <div class="p-6 space-y-8">
-                <div class="flex items-center">
-                    <h2 class="text-2xl font-bold">piracybound</h2>
-                    <a href="https://www.piracybound.com/discord"
-                        class="ml-2 opacity-70 hover:opacity-100 transition-opacity" aria-label="Discord Server">
+        <nav id="sidebar" class="scrollbar-thin">
+            <div class="sidebar-inner">
+                <div class="sidebar-header">
+                    <h2>piracybound</h2>
+                    <a href="https://www.piracybound.com/discord" aria-label="Discord Server">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="currentColor" class="w-5 h-5">
+                            fill="currentColor" style="width: 20px; height: 20px;">
                             <path
                                 d="M20.317 4.3698a19.7925 19.7925 0 00-4.8995-1.5459.0741.0741 0 00-.0787.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8423-.2762-3.68-.2762-5.4981 0-.1636-.3959-.4096-.8854-.6227-1.2495a.077.077 0 00-.0788-.037 19.7303 19.7303 0 00-4.8993 1.5459.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4205 5.9868 3.0294a.077.077 0 00.0842-.0276c.4616-.6304.8734-1.2952 1.226-1.9971a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8905a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3714-.2914a.0743.0743 0 01.0776-.0105c3.9284 1.7916 8.18 1.7916 12.0614 0a.0739.0739 0 01.0785.0095c.1198.099.246.1981.3718.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8883.0766.0766 0 00-.0407.1058c.3552.6978.7637 1.3626 1.2235 1.9929a.0765.0765 0 00.0842.0276c1.9508-.6086 3.9393-1.5215 6.0024-3.0294a.077.077 0 00.0313-.0552c.4844-5.2286-.8349-9.7456-3.5256-13.7321a.061.061 0 00-.0312-.0278zM8.02 15.3312c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9555-2.4188 2.157-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9555 2.4188-2.1569 2.4188zm7.9327 0c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9554-2.4188 2.1569-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9436 2.4188-2.1568 2.4188z" />
                         </svg>
                     </a>
                 </div>
-                <ul class="space-y-3">
-                    <li><a href="#vpn" data-section="vpn"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">VPNs</a></li>
-                    <li><a href="#torrent-clients" data-section="torrent-clients"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">Torrent
-                            Clients</a></li>
-                    <li><a href="#browser-extensions" data-section="browser-extensions"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">Browser
+                <ul class="nav-list">
+                    <li><a href="#vpn" data-section="vpn" class="nav-link">VPNs</a></li>
+                    <li><a href="#torrent-clients" data-section="torrent-clients" class="nav-link">Torrent Clients</a>
+                    </li>
+                    <li><a href="#browser-extensions" data-section="browser-extensions" class="nav-link">Browser
                             Extensions</a></li>
-                    <li><a href="#software-sites" data-section="software-sites"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">Software
-                            Sites</a></li>
-                    <li><a href="#streaming-sites" data-section="streaming-sites"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">Streaming
-                            Sites</a></li>
-                    <li><a href="#games" data-section="games"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">Games</a></li>
-                    <li><a href="#music" data-section="music"
-                            class="nav-link block py-2 px-3 rounded hover:bg-white/10 transition-colors">Music</a></li>
+                    <li><a href="#software-sites" data-section="software-sites" class="nav-link">Software Sites</a></li>
+                    <li><a href="#streaming-sites" data-section="streaming-sites" class="nav-link">Streaming Sites</a>
+                    </li>
+                    <li><a href="#games" data-section="games" class="nav-link">Games</a></li>
+                    <li><a href="#music" data-section="music" class="nav-link">Music</a></li>
                 </ul>
             </div>
         </nav>
 
-        <main class="flex-1 md:ml-64 p-6 md:p-12 lg:p-16 transition-all duration-300">
-            <div class="max-w-3xl mx-auto glass-bg rounded-xl p-6 md:p-10 shadow-2xl">
+        <main class="main-content">
+            <div class="main-content-card">
                 <div id="content-container">
-                    <div id="initial-content" class="content-section active">
-                        <p class="text-lg mb-6 leading-relaxed">
+                    <div id="initial-content" class="content-section">
+                        <h3 style="margin-top:0;">Welcome to piracybound</h3>
+                        <p>
                             This website is intended to serve as a guide for individuals seeking information on piracy.
-                            As a proponent of piracy, I
-                            am utilizing my platform to educate others. I hold the view that if purchasing does not
-                            equate to ownership, then piracy
-                            should not be equated with theft. Presented herein is a curated list of reliable websites
+                            As a proponent of piracy, I am utilizing my platform to educate others. I hold the view that
+                            if purchasing does not
+                            equate to ownership, then piracy should not be equated with theft. Presented herein is a
+                            curated list of reliable websites
                             and software for pirating.
-                            <br><br>
-                            <strong class="text-xl">Why "piracybound"?</strong><br>
+                        </p>
+                        <p>
+                            <strong>Why "piracybound"?</strong><br>
                             This name was purely influenced by an old friend group, and an old discord server called
                             "landbound".
                         </p>
                     </div>
 
-                    <div id="vpn" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">VPNs</h3>
-                        <ul class="space-y-3">
-                            <li>
-                                <a href="https://mullvad.net/" class="text-blue-400 hover:underline">Mullvad</a> -
-                                No-logs policy, WireGuard support, and multi-hop capabilities. Based in Sweden.
-                            </li>
-                            <li>
-                                <a href="https://protonvpn.com/" class="text-blue-400 hover:underline">ProtonVPN</a> -
-                                SecureCore architecture with port forwarding. Swiss jurisdiction ensures strong privacy
-                                protection.
-                            </li>
-                            <li>
-                                <a href="https://one.one.one.one/" class="text-blue-400 hover:underline">CloudFlare
-                                    Warp</a> -
-                                Free privacy-focused DNS service with optional VPN features.
-                            </li>
+                    <div id="vpn" class="content-section">
+                        <h3>VPNs</h3>
+                        <ul>
+                            <li><a href="https://mullvad.net/">Mullvad</a> - No-logs policy, WireGuard support, and
+                                multi-hop capabilities. Based in Sweden.</li>
+                            <li><a href="https://protonvpn.com/">ProtonVPN</a> - SecureCore architecture with port
+                                forwarding. Swiss jurisdiction ensures strong privacy protection.</li>
+                            <li><a href="https://one.one.one.one/">CloudFlare Warp</a> - Free privacy-focused DNS
+                                service with optional VPN features.</li>
                         </ul>
                     </div>
 
-                    <div id="torrent-clients" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">Torrent Clients</h3>
-                        <ul class="space-y-3">
-                            <li>
-                                <a href="https://www.qbittorrent.org/"
-                                    class="text-blue-400 hover:underline">qBittorrent</a> - Open-source client with
-                                built-in search and media streaming.
-                            </li>
-                            <li>
-                                <a href="https://www.deluge-torrent.org/"
-                                    class="text-blue-400 hover:underline">Deluge</a> - Lightweight client with plugin
-                                support for advanced features.
-                            </li>
-                            <li>
-                                <a href="https://transmissionbt.com/"
-                                    class="text-blue-400 hover:underline">Transmission</a> - Simple, cross-platform
-                                client with web interface support.
-                            </li>
+                    <div id="torrent-clients" class="content-section">
+                        <h3>Torrent Clients</h3>
+                        <ul>
+                            <li><a href="https://www.qbittorrent.org/">qBittorrent</a> - Open-source client with
+                                built-in search and media streaming.</li>
+                            <li><a href="https://www.deluge-torrent.org/">Deluge</a> - Lightweight client with plugin
+                                support for advanced features.</li>
+                            <li><a href="https://transmissionbt.com/">Transmission</a> - Simple, cross-platform client
+                                with web interface support.</li>
                         </ul>
                     </div>
 
-                    <div id="browser-extensions" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">Browser Extensions</h3>
-                        <ul class="space-y-3">
-                            <li>
-                                <a href="https://ublockorigin.com/" class="text-blue-400 hover:underline">uBlock
-                                    Origin</a> - Efficient ad-blocker with custom filter lists.
-                            </li>
-                            <li>
-                                <a href="https://privacybadger.org/" class="text-blue-400 hover:underline">Privacy
-                                    Badger</a> - Blocks trackers automatically while browsing.
-                            </li>
-                            <li>
-                                <a href="https://www.eff.org/https-everywhere"
-                                    class="text-blue-400 hover:underline">HTTPS Everywhere</a> - Enforces secure
-                                connections on supported sites.
-                            </li>
-                            <li>
-                                <a href="https://fastforward.team/"
-                                    class="text-blue-400 hover:underline">FastForward</a> - Circumvent link
-                                shorteners.
-                            </li>
-
+                    <div id="browser-extensions" class="content-section">
+                        <h3>Browser Extensions</h3>
+                        <ul>
+                            <li><a href="https://ublockorigin.com/">uBlock Origin</a> - Efficient ad-blocker with custom
+                                filter lists.</li>
+                            <li><a href="https://privacybadger.org/">Privacy Badger</a> - Blocks trackers automatically
+                                while browsing.</li>
+                            <li><a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a> - Enforces secure
+                                connections on supported sites.</li>
+                            <li><a href="https://fastforward.team/">FastForward</a> - Circumvent link shorteners.</li>
                         </ul>
                     </div>
 
-                    <div id="software-sites" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">Software Sites</h3>
-                        <ul class="space-y-3">
-                            <li>
-                                <a href="https://w14.monkrus.ws/" class="text-blue-400 hover:underline">m0nkrus</a> -
-                                Trusted Adobe software site.
-                                Windows only.
-                            </li>
-                            <li>
-                                <a href="https://massgrave.dev/" class="text-blue-400 hover:underline">MAS (Microsoft
-                                    Activation Scripts)</a> - Your
-                                all-in-one solution to activating Windows & Microsoft Office.
-                            </li>
-
+                    <div id="software-sites" class="content-section">
+                        <h3>Software Sites</h3>
+                        <ul>
+                            <li><a href="https://w14.monkrus.ws/">m0nkrus</a> - Trusted Adobe software site. Windows
+                                only.</li>
+                            <li><a href="https://massgrave.dev/">MAS (Microsoft Activation Scripts)</a> - Your
+                                all-in-one solution to activating Windows & Microsoft Office.</li>
                         </ul>
                     </div>
 
-                    <div id="streaming-sites" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">Streaming Sites</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="text-xl font-semibold mb-2">Anime</h4>
-                                <ul class="space-y-2">
-                                    <li><a href="https://hianime.to/" class="text-blue-400 hover:underline">HiAnime</a>
-                                    </li>
-                                    <li><a href="https://anicrush.to/"
-                                            class="text-blue-400 hover:underline">AniCrush</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold mb-2">Sports</h4>
-                                <ul class="space-y-2">
-                                    <li><a href="https://the.streameast.app/"
-                                            class="text-blue-400 hover:underline">StreamEast</a></li>
-                                    <li><a href="https://sportsurge.net/"
-                                            class="text-blue-400 hover:underline">Sportsurge</a></li>
-                                </ul>
-                            </div>
+                    <div id="streaming-sites" class="content-section">
+                        <h3>Streaming Sites</h3>
+                        <div>
+                            <h4>Anime</h4>
+                            <ul>
+                                <li><a href="https://hianime.to/">HiAnime</a></li>
+                                <li><a href="https://anicrush.to/">AniCrush</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Sports</h4>
+                            <ul>
+                                <li><a href="https://the.streameast.app/">StreamEast</a></li>
+                                <li><a href="https://sportsurge.net/">Sportsurge</a></li>
+                            </ul>
                         </div>
                     </div>
 
-                    <div id="games" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">Games</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="text-xl font-semibold mb-2">Game Repos</h4>
-                                <ul class="space-y-3">
-                                    <li>
-                                        <a href="https://fitgirl-repacks.site/"
-                                            class="text-blue-400 hover:underline">FitGirl Repacks</a> <strong>(DDL /
-                                            Torrent)</strong> - One of the most reputable repackers.
-                                    </li>
-                                    <li>
-                                        <a href="https://dodi-repacks.site/" class="text-blue-400 hover:underline">DODI
-                                            Repacks</a> <strong>(DDL / Torrent)</strong> - Active repacker with frequent
-                                        updates.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold mb-2">ROMs</h4>
-                                <ul class="space-y-3">
-                                    <li>
-                                        <a href="https://vimm.net/vault/" class="text-blue-400 hover:underline">Vimm's
-                                            Lair: Vault</a> <strong>(DDL / Torrent)</strong>
-                                    </li>
-                                    <li>
-                                        <a href="https://nopaystation.com/"
-                                            class="text-blue-400 hover:underline">NoPayStation</a>
-                                        <strong>(DDL)</strong> - Best source for PSP, PS3, and PS Vita content.
-                                    </li>
-                                </ul>
-                            </div>
+                    <div id="games" class="content-section">
+                        <h3>Games</h3>
+                        <div>
+                            <h4>Game Repos</h4>
+                            <ul>
+                                <li><a href="https://fitgirl-repacks.site/">FitGirl Repacks</a> <strong>(DDL /
+                                        Torrent)</strong> - One of the most reputable repackers.</li>
+                                <li><a href="https://dodi-repacks.site/">DODI Repacks</a> <strong>(DDL /
+                                        Torrent)</strong> - Active repacker with frequent updates.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>ROMs</h4>
+                            <ul>
+                                <li><a href="https://vimm.net/vault/">Vimm's Lair: Vault</a> <strong>(DDL /
+                                        Torrent)</strong></li>
+                                <li><a href="https://nopaystation.com/">NoPayStation</a> <strong>(DDL)</strong> - Best
+                                    source for PSP, PS3, and PS Vita content.</li>
+                            </ul>
                         </div>
                     </div>
 
-                    <div id="music" class="content-section hidden">
-                        <h3 class="text-2xl font-semibold mb-4">Music</h3>
-                        <ul class="space-y-3">
-                            <li>
-                                <a href="https://lucida.to" class="text-blue-400 hover:underline">lucida.to</a> - Music
-                                downloader merging Slavart & DoubleDouble features.
-                            </li>
-                            <li>
-                                <a href="https://doubledouble.top/"
-                                    class="text-blue-400 hover:underline">doubledouble.top</a> - Supports services
-                                lucida does not.
-                            </li>
+                    <div id="music" class="content-section">
+                        <h3>Music</h3>
+                        <ul>
+                            <li><a href="https://lucida.to">lucida.to</a> - Music downloader merging Slavart &
+                                DoubleDouble features.</li>
+                            <li><a href="https://doubledouble.top/">doubledouble.top</a> - Supports services lucida does
+                                not.</li>
                         </ul>
                     </div>
                 </div>
 
-                <footer class="mt-8 text-sm opacity-70 flex justify-between items-center">
+                <footer>
                     <span>© piracybound <span id="year"></span></span>
-                    <a href="#" class="hover:underline opacity-70 hover:opacity-100 transition-opacity"
+                    <a href="#"
                         onclick="event.preventDefault(); window.location.href='mailto:'+atob('amFzb25AcGlyYWN5Ym91bmQuY29t')"
-                        aria-label="Contact Email">jason [at] piracybound [dot] com</a>
+                        aria-label="Contact Email">uchks [at] piracybound [dot] com</a>
                 </footer>
             </div>
         </main>
     </div>
+    
+    <a href="https://www.piracybound.com/manilua" id="manilua-ad" target="_blank" rel="noopener noreferrer">
+        <img src="https://www.piracybound.com/favicon.ico" alt="favicon">
+        <div class="ad-content">
+            <span class="ad-title">manilua</span>
+            <span class="ad-body">Your repository for Steam Manifests and Workshop downloads.</span>
+        </div>
+    </a>
 
-    <script lang="javascript" defer>
-        const {
-            mobileMenu,
-            sidebar,
-            year,
-            contentSections,
-            navLinks
-        } = {
-            mobileMenu: document.getElementById('mobile-menu-toggle'),
-            sidebar: document.getElementById('sidebar'),
-            year: document.getElementById('year'),
-            contentSections: document.querySelectorAll('.content-section'),
-            navLinks: document.querySelectorAll('.nav-link')
-        };
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const contentContainer = document.getElementById('content-container');
+            const navLinks = document.querySelectorAll('.nav-link');
 
-        year.textContent = new Date().getFullYear();
+            document.getElementById('year').textContent = new Date().getFullYear();
 
-        const toggleSidebar = (force) => sidebar.classList.toggle('-translate-x-full', force);
+            const switchContent = (sectionId) => {
+                contentContainer.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
 
-        const switchContent = (sectionId) => {
-            contentSections.forEach(section =>
-                section.classList.toggle('hidden', section.id !== sectionId)
-            );
-        };
+                const targetSection = document.getElementById(sectionId);
 
-        mobileMenu.addEventListener('click', () => toggleSidebar());
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                } else {
+                    document.getElementById('initial-content').classList.add('active');
+                }
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                switchContent(e.currentTarget.dataset.section);
-                window.innerWidth < 768 && toggleSidebar(true);
+                navLinks.forEach(nav => {
+                    nav.classList.toggle('active', nav.dataset.section === sectionId);
+                });
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = e.currentTarget.dataset.section;
+                    switchContent(sectionId);
+
+                    history.pushState(null, '', `#${sectionId}`);
+
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('open');
+                    }
+                });
             });
-        });
 
-        window.addEventListener('resize', () => toggleSidebar(window.innerWidth < 768));
+            mobileMenuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('open');
+            });
+
+            mainContent.addEventListener('click', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            window.addEventListener('popstate', () => {
+                const sectionId = window.location.hash.substring(1);
+                switchContent(sectionId || 'initial-content');
+            });
+
+            const initialSectionId = window.location.hash.substring(1);
+            switchContent(initialSectionId || 'initial-content');
+        });
     </script>
 </body>
 
