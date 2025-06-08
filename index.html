@@ -116,6 +116,13 @@
         backdrop-filter: blur(24px) saturate(180%);
         border-right: 1px solid var(--glass-border);
       }
+      
+      @media (max-width: 768px) {
+        #sidebar {
+            transform: translateX(-100%);
+        }
+      }
+
 
       body.light-mode #sidebar {
         background: rgba(255, 255, 255, 0.4);
