@@ -1,642 +1,2089 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>piracybound</title>
-    <meta name="description" content="piracybound - your guide to digital freedom.">
-    <meta name="author" content="piracybound">
-    <meta name="theme-color" content="#000000">
-    <link rel="icon" href="https://www.piracybound.com/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css">
+    <meta
+      name="description"
+      content="piracybound - your guide to digital freedom."
+    />
+    <meta name="author" content="piracybound" />
+    <meta name="theme-color" content="#000000" />
+    <link
+      rel="icon"
+      href="https://www.piracybound.com/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css"
+    />
     <style>
-        :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-primary: rgba(255, 255, 255, 0.95);
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --accent-blue: #3b82f6;
-            --sidebar-width: 256px;
+      :root {
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-primary: rgba(255, 255, 255, 0.95);
+        --text-secondary: rgba(255, 255, 255, 0.7);
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-yellow: #f59e0b;
+        --sidebar-width: 280px;
+        --danger-red: #ef4444;
+      }
+
+      body.light-mode {
+        --glass-bg: rgba(255, 255, 255, 0.6);
+        --glass-border: rgba(0, 0, 0, 0.1);
+        --text-primary: rgba(0, 0, 0, 0.85);
+        --text-secondary: rgba(0, 0, 0, 0.6);
+        --accent-blue: #007aff;
+        --accent-green: #34c759;
+        --accent-yellow: #ff9500;
+        --danger-red: #ff3b30;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #000;
+        color: var(--text-secondary);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        font-family: "San Francisco", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body.light-mode {
+        background: #f5f5f7;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: -50%;
+        z-index: -1;
+        background: radial-gradient(
+            circle at 20% 50%,
+            rgba(120, 119, 198, 0.25) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(139, 92, 246, 0.15) 0%,
+            transparent 40%
+          );
+        animation: gradientShift 30s ease infinite;
+        pointer-events: none;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          transform: rotate(0deg) scale(1.2);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        50% {
+          transform: rotate(180deg) scale(1.4);
         }
+      }
 
-        html {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            scroll-behavior: smooth;
+      .page-wrapper {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      #sidebar {
+        position: fixed;
+        left: 0;
+        width: var(--sidebar-width);
+        height: 100vh;
+        z-index: 40;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
+        transform: translateX(0);
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(24px) saturate(180%);
+        border-right: 1px solid var(--glass-border);
+      }
+
+      body.light-mode #sidebar {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .main-content {
+        flex-grow: 1;
+        padding: 2rem;
+        margin-left: var(--sidebar-width);
+        transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .main-content-card {
+        max-width: 896px;
+        margin-left: auto;
+        margin-right: auto;
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      }
+      
+      body.light-mode .main-content-card {
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+      }
+
+
+      .sidebar-inner {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sidebar-header h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        background: linear-gradient(
+          180deg,
+          #fff 0%,
+          rgba(255, 255, 255, 0.8) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
+      }
+      
+      body.light-mode .sidebar-header h2 {
+        background: linear-gradient(
+          180deg,
+          #000 0%,
+          rgba(0, 0, 0, 0.8) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .header-actions a,
+      .header-actions button {
+        color: var(--text-secondary);
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header-actions a:hover,
+      .header-actions button:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.05);
+        transform: scale(1.1);
+      }
+
+      body.light-mode .header-actions a:hover,
+      body.light-mode .header-actions button:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .search-container {
+        position: relative;
+        margin-bottom: 0.5rem;
+      }
+
+      .search-input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        color: var(--text-primary);
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+      }
+
+      body.light-mode .search-input {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      
+      body.light-mode .search-input:focus {
+         background: rgba(0, 0, 0, 0.08);
+      }
+
+
+      .search-input::placeholder {
+        color: var(--text-secondary);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+        pointer-events: none;
+      }
+
+      .nav-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-weight: 500;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-primary);
+        transform: translateX(4px);
+      }
+      
+      body.light-mode .nav-link:hover {
+         background: rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-link.active {
+        background: rgba(59, 130, 246, 0.15);
+        color: var(--text-primary);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      
+      body.light-mode .nav-link.active {
+         box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+      }
+
+
+      .nav-link.hidden, .nav-list-item.hidden {
+        display: none;
+      }
+
+      .item-count {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+      }
+      
+      body.light-mode .item-count {
+         background: rgba(0, 0, 0, 0.1);
+      }
+
+
+      .content-section {
+        display: none;
+        animation: fadeIn 0.5s ease;
+      }
+      
+      .content-section.searching {
+          display: block !important;
+          animation: none !important;
+      }
+
+
+      .content-section.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
         }
-
-        body {
-            background: #000;
-            color: var(--text-secondary);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: -50%;
-            z-index: -1;
-            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.25) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
-            animation: gradientShift 30s ease infinite;
-            pointer-events: none;
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      .breadcrumb a {
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .breadcrumb a:hover {
+        color: #60a5fa;
+      }
+      
+      body.light-mode .breadcrumb a:hover {
+        color: #0056b3;
+      }
+
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      .section-stats {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        margin-top: 1.5rem;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+        border-bottom: 1px solid var(--glass-border);
+        padding-bottom: 0.5rem;
+      }
+
+      p {
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+
+      p:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .resource-grid {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .resource-card.hidden {
+        display: none;
+      }
+
+      .resource-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 1.25rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      
+       body.light-mode .resource-card {
+        background: rgba(0, 0, 0, 0.03);
+       }
+
+
+      .resource-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
+      }
+      
+      body.light-mode .resource-card:hover {
+        background: rgba(0, 0, 0, 0.06);
+        box-shadow: 0 8px 24px rgba(0, 122, 255, 0.1);
+      }
+
+
+      .resource-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+      }
+
+      .resource-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.2s ease;
+      }
+
+      .resource-title:hover {
+        color: var(--accent-blue);
+      }
+
+      .resource-badges {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+      }
+
+      .badge.trusted {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--accent-green);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .badge.free {
+        background: rgba(59, 130, 246, 0.2);
+        color: var(--accent-blue);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+      }
+
+      .badge.signup {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--accent-yellow);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .badge.caution {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--danger-red);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .resource-description {
+        color: var(--text-secondary);
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+      }
+
+      .resource-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+
+      .feature-tag {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-secondary);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+      }
+      
+      body.light-mode .feature-tag {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+
+      .quick-actions {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        z-index: 100;
+      }
+
+      .quick-action-btn {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+      
+      body.light-mode .quick-action-btn {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+
+
+      .quick-action-btn:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
+      }
+      
+      body.light-mode .quick-action-btn:hover {
+        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.2);
+      }
+
+
+      .back-to-top {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .main-content-card footer {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--glass-border);
+        font-size: 0.875rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-secondary);
+      }
+
+      #mobile-menu-toggle {
+        display: none;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        cursor: pointer;
+      }
+
+      .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+      }
+
+      .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+      }
+      
+      body.light-mode .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.15);
+      }
+
+      .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+
+       body.light-mode .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+      }
+
+
+      #manilua-ad {
+        position: fixed;
+        left: 1.5rem;
+        bottom: 1.5rem;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        width: 320px;
+
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.25s ease;
+
+        animation: fadeInAd 0.5s ease 1s backwards;
+      }
+      
+      body.light-mode #manilua-ad {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes fadeInAd {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
         }
-
-        @keyframes gradientShift {
-
-            0%,
-            100% {
-                transform: rotate(0deg) scale(1.2);
-            }
-
-            50% {
-                transform: rotate(180deg) scale(1.4);
-            }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        .page-wrapper {
-            display: flex;
-            min-height: 100vh;
+      #manilua-ad:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+      }
+      
+      body.light-mode #manilua-ad:hover {
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      }
+
+
+      #manilua-ad img {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+
+      #manilua-ad .bubble {
+        flex-grow: 1;
+      }
+
+      #manilua-ad .bubble-title {
+        display: block;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text-primary);
+      }
+
+      #manilua-ad .bubble-body {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+      }
+
+      .toast {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        color: var(--text-primary);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        max-width: 320px;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      .toast.success {
+        border-left: 4px solid var(--accent-green);
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      @media (max-width: 768px) {
+        #mobile-menu-toggle {
+          display: inline-flex;
         }
 
         #sidebar {
-            position: fixed;
-            left: 0;
-            width: var(--sidebar-width);
-            z-index: 40;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            transform: translateX(0);
+          transform: translateX(-100%);
+        }
+
+        #sidebar.open {
+          transform: translateX(0);
         }
 
         .main-content {
-            flex-grow: 1;
-            padding: 2rem;
-            margin-left: var(--sidebar-width);
-            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          margin-left: 0;
+          padding: 1.5rem 1rem;
         }
 
         .main-content-card {
-            max-width: 896px;
-            margin-left: auto;
-            margin-right: auto;
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
-        }
-
-        .sidebar-inner {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .sidebar-header h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-        }
-
-        .sidebar-header a {
-            color: var(--text-secondary);
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-
-        .sidebar-header a:hover {
-            color: var(--text-primary);
-            transform: scale(1.1);
-        }
-
-        .nav-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            transform: translateX(4px);
-        }
-
-        .nav-link.active {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--text-primary);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h3 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        h4 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            margin-top: 1.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 0.5rem;
-        }
-
-        p {
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        ul {
-            list-style: none;
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        li {
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        li::before {
-            position: absolute;
-            left: 0;
-            color: var(--accent-blue);
-        }
-
-        strong {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        a {
-            color: var(--accent-blue);
-            text-decoration: none;
-            transition: color 0.2s ease, opacity 0.2s ease;
-        }
-
-        a:hover {
-            color: #60a5fa;
-            text-decoration: underline;
+          padding: 1.5rem;
         }
 
         .main-content-card footer {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--glass-border);
-            font-size: 0.875rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-secondary);
+          flex-direction: column;
+          gap: 0.5rem;
         }
 
-        #mobile-menu-toggle {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 50;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--glass-border);
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-        
-        .scrollbar-thin {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
-        }
-
-        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-        }
-        
         #manilua-ad {
-            position: fixed;
-            left: 1.5rem;
-            bottom: 1.5rem;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            width: 320px;
-            
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
-            
-            animation: fadeInAd 0.5s ease 1s backwards;
+          display: none;
         }
 
-        @keyframes fadeInAd {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .quick-actions {
+          bottom: 1rem;
+          right: 1rem;
         }
 
-        #manilua-ad:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-            text-decoration: none;
+        .resource-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
         }
-
-        #manilua-ad img {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-        
-        #manilua-ad .bubble {
-            flex-grow: 1;
-        }
-
-        #manilua-ad .bubble-title {
-            display: block;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-        }
-
-        #manilua-ad .bubble-body {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-        
-        @media (max-width: 768px) {
-            #mobile-menu-toggle {
-                display: inline-flex;
-            }
-
-            #sidebar {
-                transform: translateX(-100%);
-            }
-
-            #sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1.5rem 1rem;
-            }
-
-            .main-content-card {
-                padding: 1.5rem;
-            }
-
-            .main-content-card footer {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            #manilua-ad {
-                display: none;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="page-wrapper">
-        <button id="mobile-menu-toggle" aria-label="Toggle Menu">
-            <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
+      <button id="mobile-menu-toggle" aria-label="Toggle Menu">
+        <svg
+          style="width: 24px; height: 24px"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+      </button>
+
+      <nav id="sidebar" class="scrollbar-thin">
+        <div class="sidebar-inner">
+          <div class="sidebar-header">
+            <h2>piracybound</h2>
+            <div class="header-actions">
+              <button id="theme-toggle" aria-label="Toggle theme">
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  ></path>
+                </svg>
+              </button>
+              <a
+                href="https://www.piracybound.com/discord"
+                aria-label="Discord Server"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="width: 20px; height: 20px"
+                >
+                  <path
+                    d="M20.317 4.3698a19.7925 19.7925 0 00-4.8995-1.5459.0741.0741 0 00-.0787.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8423-.2762-3.68-.2762-5.4981 0-.1636-.3959-.4096-.8854-.6227-1.2495a.077.077 0 00-.0788-.037 19.7303 19.7303 0 00-4.8993 1.5459.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4205 5.9868 3.0294a.077.077 0 00.0842-.0276c.4616-.6304.8734-1.2952 1.226-1.9971a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8905a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3714-.2914a.0743.0743 0 01.0776-.0105c3.9284 1.7916 8.18 1.7916 12.0614 0a.0739.0739 0 01.0785.0095c.1198.099.246.1981.3718.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8883.0766.0766 0 00-.0407.1058c.3552.6978.7637 1.3626 1.2235 1.9929a.0765.0765 0 00.0842.0276c1.9508-.6086 3.9393-1.5215 6.0024-3.0294a.077.077 0 00.0313-.0552c.4844-5.2286-.8349-9.7456-3.5256-13.7321a.061.061 0 00-.0312-.0278zM8.02 15.3312c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9555-2.4188 2.157-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9555 2.4188-2.1569 2.4188zm7.9327 0c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9554-2.4188 2.1569-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9436 2.4188-2.1568 2.4188z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="search-container">
+            <svg
+              class="search-icon"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
             </svg>
-        </button>
+            <input
+              type="text"
+              id="search-input"
+              class="search-input"
+              placeholder="Search resources..."
+            />
+          </div>
 
-        <nav id="sidebar" class="scrollbar-thin">
-            <div class="sidebar-inner">
-                <div class="sidebar-header">
-                    <h2>piracybound</h2>
-                    <a href="https://www.piracybound.com/discord" aria-label="Discord Server">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="currentColor" style="width: 20px; height: 20px;">
-                            <path
-                                d="M20.317 4.3698a19.7925 19.7925 0 00-4.8995-1.5459.0741.0741 0 00-.0787.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8423-.2762-3.68-.2762-5.4981 0-.1636-.3959-.4096-.8854-.6227-1.2495a.077.077 0 00-.0788-.037 19.7303 19.7303 0 00-4.8993 1.5459.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4205 5.9868 3.0294a.077.077 0 00.0842-.0276c.4616-.6304.8734-1.2952 1.226-1.9971a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8905a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3714-.2914a.0743.0743 0 01.0776-.0105c3.9284 1.7916 8.18 1.7916 12.0614 0a.0739.0739 0 01.0785.0095c.1198.099.246.1981.3718.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8883.0766.0766 0 00-.0407.1058c.3552.6978.7637 1.3626 1.2235 1.9929a.0765.0765 0 00.0842.0276c1.9508-.6086 3.9393-1.5215 6.0024-3.0294a.077.077 0 00.0313-.0552c.4844-5.2286-.8349-9.7456-3.5256-13.7321a.061.061 0 00-.0312-.0278zM8.02 15.3312c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9555-2.4188 2.157-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9555 2.4188-2.1569 2.4188zm7.9327 0c-1.1825 0-2.1569-1.0866-2.1569-2.419 0-1.3322.9554-2.4188 2.1569-2.4188 1.2132 0 2.1878 1.0971 2.1568 2.419 0 1.3322-.9436 2.4188-2.1568 2.4188z" />
-                        </svg>
-                    </a>
-                </div>
-                <ul class="nav-list">
-                    <li><a href="#vpn" data-section="vpn" class="nav-link">VPNs</a></li>
-                    <li><a href="#torrent-clients" data-section="torrent-clients" class="nav-link">Torrent Clients</a>
-                    </li>
-                    <li><a href="#browser-extensions" data-section="browser-extensions" class="nav-link">Browser
-                            Extensions</a></li>
-                    <li><a href="#software-sites" data-section="software-sites" class="nav-link">Software Sites</a></li>
-                    <li><a href="#streaming-sites" data-section="streaming-sites" class="nav-link">Streaming Sites</a>
-                    </li>
-                    <li><a href="#games" data-section="games" class="nav-link">Games</a></li>
-                    <li><a href="#music" data-section="music" class="nav-link">Music</a></li>
-                    <li><a href="#books" data-section="books" class="nav-link">Books</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <main class="main-content">
-            <div class="main-content-card">
-                <div id="content-container">
-                    <div id="initial-content" class="content-section">
-                        <h3 style="margin-top:0;">Welcome to piracybound</h3>
-                        <p>
-                            This website is intended to serve as a guide for individuals seeking information on piracy.
-                            As a proponent of piracy, I am utilizing my platform to educate others. I hold the view that
-                            if purchasing does not
-                            equate to ownership, then piracy should not be equated with theft. Presented herein is a
-                            curated list of reliable websites
-                            and software for pirating.
-                        </p>
-                        <p>
-                            <strong>Why "piracybound"?</strong><br>
-                            This name was purely influenced by an old friend group, and an old discord server called
-                            "landbound".
-                        </p>
-                    </div>
-
-                    <div id="vpn" class="content-section">
-                        <h3>VPNs</h3>
-                        <ul>
-                            <li><a href="https://mullvad.net/">Mullvad</a> - No-logs policy, WireGuard support, and
-                                multi-hop capabilities. Based in Sweden.</li>
-                            <li><a href="https://protonvpn.com/">ProtonVPN</a> - SecureCore architecture with port
-                                forwarding. Swiss jurisdiction ensures strong privacy protection.</li>
-                            <li><a href="https://one.one.one.one/">CloudFlare Warp</a> - Free privacy-focused DNS
-                                service with optional VPN features.</li>
-                        </ul>
-                    </div>
-
-                    <div id="torrent-clients" class="content-section">
-                        <h3>Torrent Clients</h3>
-                        <ul>
-                            <li><a href="https://www.qbittorrent.org/">qBittorrent</a> - Open-source client with
-                                built-in search and media streaming.</li>
-                            <li><a href="https://www.deluge-torrent.org/">Deluge</a> - Lightweight client with plugin
-                                support for advanced features.</li>
-                            <li><a href="https://transmissionbt.com/">Transmission</a> - Simple, cross-platform client
-                                with web interface support.</li>
-                        </ul>
-                    </div>
-
-                    <div id="browser-extensions" class="content-section">
-                        <h3>Browser Extensions</h3>
-                        <ul>
-                            <li><a href="https://ublockorigin.com/">uBlock Origin</a> - Efficient ad-blocker with custom
-                                filter lists.</li>
-                            <li><a href="https://privacybadger.org/">Privacy Badger</a> - Blocks trackers automatically
-                                while browsing.</li>
-                            <li><a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a> - Enforces secure
-                                connections on supported sites.</li>
-                            <li><a href="https://fastforward.team/">FastForward</a> - Circumvent link shorteners.</li>
-                        </ul>
-                    </div>
-
-                    <div id="software-sites" class="content-section">
-                        <h3>Software Sites</h3>
-                        <ul>
-                            <li><a href="https://w14.monkrus.ws/">m0nkrus</a> - Trusted Adobe software site. Windows
-                                only.</li>
-                            <li><a href="https://massgrave.dev/">MAS (Microsoft Activation Scripts)</a> - Your
-                                all-in-one solution to activating Windows & Microsoft Office.</li>
-                        </ul>
-                    </div>
-
-                    <div id="streaming-sites" class="content-section">
-                        <h3>Streaming Sites</h3>
-                        <div>
-                            <h4>Anime</h4>
-                            <ul>
-                                <li><a href="https://hianime.to/">HiAnime</a></li>
-                                <li><a href="https://anicrush.to/">AniCrush</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Sports</h4>
-                            <ul>
-                                <li><a href="https://the.streameast.app/">StreamEast</a></li>
-                                <li><a href="https://sportsurge.net/">Sportsurge</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="games" class="content-section">
-                        <h3>Games</h3>
-                        <div>
-                            <h4>Game Repos</h4>
-                            <ul>
-                                <li><a href="https://fitgirl-repacks.site/">FitGirl Repacks</a> <strong>(DDL /
-                                        Torrent)</strong> - One of the most reputable repackers.</li>
-                                <li><a href="https://dodi-repacks.site/">DODI Repacks</a> <strong>(DDL /
-                                        Torrent)</strong> - Active repacker with frequent updates.</li>
-                                <li><a href="https://cs.rin.ru/">cs.rin.ru</a> <strong>(DDL)</strong> - Clean Steam Files.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>ROMs</h4>
-                            <ul>
-                                <li><a href="https://vimm.net/vault/">Vimm's Lair: Vault</a> <strong>(DDL /
-                                        Torrent)</strong></li>
-                                <li><a href="https://nopaystation.com/">NoPayStation</a> <strong>(DDL)</strong> - Best
-                                    source for PSP, PS3, and PS Vita content.</li>
-                                <li><a href="https://nsw2u.com/">nsw2u</a> <strong>(DDL)</strong> - Offers NSP / XCI files for Switch Games, 
-                                    with Updates included.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="music" class="content-section">
-                        <h3>Music</h3>
-                        <ul>
-                            <li><a href="https://lucida.to">lucida.to</a> - Music downloader merging Slavart &
-                                DoubleDouble features.</li>
-                            <li><a href="https://doubledouble.top/">doubledouble.top</a> - Supports services lucida does
-                                not.</li>
-                        </ul>
-                    </div>
-
-                    <div id="books" class="content-section">
-                        <h3>Books</h3>
-                        <ul>
-                            <li><a href="https://z-library.sk/">z-library</a> - <strong>Requires sign-up.</strong></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <footer>
-                    <span>© piracybound <span id="year"></span></span>
-                    <a href="#"
-                        onclick="event.preventDefault(); window.location.href='mailto:'+atob('amFzb25AcGlyYWN5Ym91bmQuY29t')"
-                        aria-label="Contact Email">uchks [at] piracybound [dot] com</a>
-                </footer>
-            </div>
-        </main>
-    </div>
-    
-    <a href="https://www.piracybound.com/manilua" id="manilua-ad" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.piracybound.com/favicon.ico" alt="favicon">
-        <div class="bubble-content">
-            <span class="bubble-title">manilua</span>
-            <span class="bubble-body">Your repository for Steam Manifests and Workshop downloads.</span>
+          <ul class="nav-list" id="nav-list">
+            <li class="nav-list-item">
+              <a href="#vpn" data-section="vpn" class="nav-link"
+                >VPNs <span class="item-count">3</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a
+                href="#torrent-clients"
+                data-section="torrent-clients"
+                class="nav-link"
+                >Torrent Clients <span class="item-count">3</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a
+                href="#browser-extensions"
+                data-section="browser-extensions"
+                class="nav-link"
+                >Browser Extensions <span class="item-count">4</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a
+                href="#software-sites"
+                data-section="software-sites"
+                class="nav-link"
+                >Software Sites <span class="item-count">2</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a
+                href="#streaming-sites"
+                data-section="streaming-sites"
+                class="nav-link"
+                >Streaming Sites <span class="item-count">4</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a href="#games" data-section="games" class="nav-link"
+                >Games <span class="item-count">6</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a href="#music" data-section="music" class="nav-link"
+                >Music <span class="item-count">2</span></a
+              >
+            </li>
+            <li class="nav-list-item">
+              <a href="#books" data-section="books" class="nav-link"
+                >Books <span class="item-count">1</span></a
+              >
+            </li>
+          </ul>
         </div>
+      </nav>
+
+      <main class="main-content">
+        <div class="main-content-card">
+          <div id="content-container">
+            <div id="initial-content" class="content-section">
+              <div class="breadcrumb">
+                <span>Home</span>
+              </div>
+              <div class="section-header">
+                <h3>Welcome to piracybound</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                      ></path>
+                    </svg>
+                    <span>25+ Resources</span>
+                  </div>
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                    <span>8 Categories</span>
+                  </div>
+                </div>
+              </div>
+              <p>
+                This website is intended to serve as a guide for individuals
+                seeking information on piracy. As a proponent of piracy, I am
+                utilizing my platform to educate others. I hold the view that if
+                purchasing does not equate to ownership, then piracy should not
+                be equated with theft. Presented herein is a curated list of
+                reliable websites and software for pirating.
+              </p>
+              <p>
+                <strong>Why "piracybound"?</strong><br />
+                This name was purely influenced by an old friend group, and an
+                old discord server called "landbound".
+              </p>
+            </div>
+            <div id="vpn" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>VPNs</span>
+              </div>
+              <div class="section-header">
+                <h3>VPNs</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      ></path>
+                    </svg>
+                    <span>3 Services</span>
+                  </div>
+                </div>
+              </div>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://mullvad.net/" class="resource-title"
+                      >Mullvad</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    No-logs policy, WireGuard support, and multi-hop
+                    capabilities. Based in Sweden with strong privacy laws.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">No-logs</span>
+                    <span class="feature-tag">WireGuard</span>
+                    <span class="feature-tag">Multi-hop</span>
+                    <span class="feature-tag">Sweden</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://protonvpn.com/" class="resource-title"
+                      >ProtonVPN</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge free">Free Tier</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    SecureCore architecture with port forwarding. Swiss
+                    jurisdiction ensures strong privacy protection.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">SecureCore</span>
+                    <span class="feature-tag">Port forwarding</span>
+                    <span class="feature-tag">Switzerland</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://one.one.one.one/" class="resource-title"
+                      >CloudFlare Warp</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Free privacy-focused DNS service with optional VPN features.
+                    Good for basic privacy needs.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DNS filtering</span>
+                    <span class="feature-tag">Mobile apps</span>
+                    <span class="feature-tag">Fast speeds</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="torrent-clients" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Torrent Clients</span>
+              </div>
+              <div class="section-header">
+                <h3>Torrent Clients</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      ></path>
+                    </svg>
+                    <span>3 Clients</span>
+                  </div>
+                </div>
+              </div>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a
+                      href="https://www.qbittorrent.org/"
+                      class="resource-title"
+                      >qBittorrent</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge free">Open Source</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Open-source client with built-in search and media streaming.
+                    Most popular choice for beginners and power users.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Built-in search</span>
+                    <span class="feature-tag">Media streaming</span>
+                    <span class="feature-tag">No ads</span>
+                    <span class="feature-tag">Cross-platform</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a
+                      href="https://www.deluge-torrent.org/"
+                      class="resource-title"
+                      >Deluge</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge free">Open Source</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Lightweight client with plugin support for advanced
+                    features. Great for servers and headless setups.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Plugin system</span>
+                    <span class="feature-tag">Lightweight</span>
+                    <span class="feature-tag">Daemon mode</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://transmissionbt.com/" class="resource-title"
+                      >Transmission</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge free">Open Source</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Simple, cross-platform client with web interface support.
+                    Minimal and efficient.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Web interface</span>
+                    <span class="feature-tag">Simple UI</span>
+                    <span class="feature-tag">Low resource usage</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="browser-extensions" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Browser Extensions</span>
+              </div>
+              <div class="section-header">
+                <h3>Browser Extensions</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      ></path>
+                    </svg>
+                    <span>4 Extensions</span>
+                  </div>
+                </div>
+              </div>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://ublockorigin.com/" class="resource-title"
+                      >uBlock Origin</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Essential</span>
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Efficient ad-blocker with custom filter lists. Essential for
+                    safe browsing on piracy sites.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Ad blocking</span>
+                    <span class="feature-tag">Custom filters</span>
+                    <span class="feature-tag">Low memory usage</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://privacybadger.org/" class="resource-title"
+                      >Privacy Badger</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Blocks trackers automatically while browsing. Learns and
+                    adapts to protect your privacy.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Tracker blocking</span>
+                    <span class="feature-tag">Auto-learning</span>
+                    <span class="feature-tag">EFF developed</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a
+                      href="https://www.eff.org/https-everywhere"
+                      class="resource-title"
+                      >HTTPS Everywhere</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Enforces secure connections on supported sites. Important
+                    for maintaining security on sketchy sites.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Force HTTPS</span>
+                    <span class="feature-tag">Security</span>
+                    <span class="feature-tag">EFF developed</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://fastforward.team/" class="resource-title"
+                      >FastForward</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Circumvent link shorteners and skip annoying redirect pages.
+                    Saves time and reduces exposure to ads.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Skip redirects</span>
+                    <span class="feature-tag">Bypass shorteners</span>
+                    <span class="feature-tag">Time saver</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="software-sites" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Software Sites</span>
+              </div>
+              <div class="section-header">
+                <h3>Software Sites</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                    <span>2 Sites</span>
+                  </div>
+                </div>
+              </div>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://w14.monkrus.ws/" class="resource-title"
+                      >m0nkrus</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                      <span class="badge caution">Windows Only</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Trusted Adobe software site with clean, pre-cracked
+                    installations. Russian site but widely respected in the
+                    community.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Adobe CC</span>
+                    <span class="feature-tag">Pre-cracked</span>
+                    <span class="feature-tag">Regular updates</span>
+                    <span class="feature-tag">Clean installs</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://massgrave.dev/" class="resource-title"
+                      >MAS (Microsoft Activation Scripts)</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Essential</span>
+                      <span class="badge free">Open Source</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Your all-in-one solution to activating Windows & Microsoft
+                    Office. Uses official Microsoft tools and methods.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Windows activation</span>
+                    <span class="feature-tag">Office activation</span>
+                    <span class="feature-tag">Official methods</span>
+                    <span class="feature-tag">Safe & clean</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="streaming-sites" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Streaming Sites</span>
+              </div>
+              <div class="section-header">
+                <h3>Streaming Sites</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M6 20l4-16m4 16l4-16"
+                      ></path>
+                    </svg>
+                    <span>4 Sites</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Anime</h4>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://hianime.to/" class="resource-title"
+                      >HiAnime</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Popular</span>
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    High-quality anime streaming with multiple servers and
+                    subtitle options. Clean interface with minimal ads.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">HD quality</span>
+                    <span class="feature-tag">Multiple servers</span>
+                    <span class="feature-tag">Subtitles</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://anicrush.to/" class="resource-title"
+                      >AniCrush</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Alternative anime streaming site with good selection and
+                    reliable servers.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Large library</span>
+                    <span class="feature-tag">Fast loading</span>
+                    <span class="feature-tag">Mobile friendly</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Sports</h4>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://the.streameast.app/" class="resource-title"
+                      >StreamEast</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Popular</span>
+                      <span class="badge caution">Ads</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Popular sports streaming site covering NFL, NBA, MLB, and
+                    more. Use ad blocker for best experience.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Live sports</span>
+                    <span class="feature-tag">Multiple sports</span>
+                    <span class="feature-tag">HD streams</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://sportsurge.net/" class="resource-title"
+                      >Sportsurge</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Aggregator</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Sports streaming aggregator that links to various streaming
+                    sources. Good backup option.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Multiple sources</span>
+                    <span class="feature-tag">All sports</span>
+                    <span class="feature-tag">Link aggregator</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="games" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Games</span>
+              </div>
+              <div class="section-header">
+                <h3>Games</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                      ></path>
+                    </svg>
+                    <span>6 Sources</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Game Repos</h4>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a
+                      href="https://fitgirl-repacks.site/"
+                      class="resource-title"
+                      >FitGirl Repacks</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Most Trusted</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    One of the most reputable repackers with heavily compressed
+                    games. Long install times but worth the download savings.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DDL & Torrent</span>
+                    <span class="feature-tag">Highly compressed</span>
+                    <span class="feature-tag">Verified clean</span>
+                    <span class="feature-tag">Regular updates</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://dodi-repacks.site/" class="resource-title"
+                      >DODI Repacks</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Trusted</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Active repacker with frequent updates and good compression
+                    ratios. Faster installs than FitGirl.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DDL & Torrent</span>
+                    <span class="feature-tag">Fast installs</span>
+                    <span class="feature-tag">Active updates</span>
+                    <span class="feature-tag">Good compression</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://cs.rin.ru/" class="resource-title"
+                      >cs.rin.ru</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Clean Files</span>
+                      <span class="badge signup">Account Required</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Clean Steam files and cracks. Forum-based community with
+                    high-quality releases and discussions.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DDL only</span>
+                    <span class="feature-tag">Steam files</span>
+                    <span class="feature-tag">Community forum</span>
+                    <span class="feature-tag">Clean releases</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>ROMs</h4>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://vimm.net/vault/" class="resource-title"
+                      >Vimm's Lair: Vault</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Most Trusted</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    The most trusted source for console ROMs. Clean files, no
+                    ads, proper preservation focus.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DDL & Torrent</span>
+                    <span class="feature-tag">All consoles</span>
+                    <span class="feature-tag">No ads</span>
+                    <span class="feature-tag">Preservation focused</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://nopaystation.com/" class="resource-title"
+                      >NoPayStation</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">PlayStation</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Best source for PSP, PS3, and PS Vita content. Direct
+                    downloads from Sony's servers.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DDL only</span>
+                    <span class="feature-tag">PSP/PS3/Vita</span>
+                    <span class="feature-tag">Sony servers</span>
+                    <span class="feature-tag">Official files</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://nsw2u.com/" class="resource-title"
+                      >nsw2u</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Switch</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Offers NSP / XCI files for Switch Games, with Updates
+                    included. Regular updates and good selection.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">DDL only</span>
+                    <span class="feature-tag">Switch games</span>
+                    <span class="feature-tag">Updates included</span>
+                    <span class="feature-tag">NSP/XCI formats</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="music" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Music</span>
+              </div>
+              <div class="section-header">
+                <h3>Music</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                      ></path>
+                    </svg>
+                    <span>2 Services</span>
+                  </div>
+                </div>
+              </div>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://lucida.to" class="resource-title"
+                      >lucida.to</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Primary</span>
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Music downloader merging Slavart & DoubleDouble features.
+                    Supports multiple streaming services with high quality
+                    downloads.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Multiple services</span>
+                    <span class="feature-tag">High quality</span>
+                    <span class="feature-tag">Fast downloads</span>
+                    <span class="feature-tag">Clean interface</span>
+                  </div>
+                </div>
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://doubledouble.top/" class="resource-title"
+                      >doubledouble.top</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Backup</span>
+                      <span class="badge free">Free</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    Supports services lucida does not. Good alternative when the
+                    primary service is down or doesn't have what you need.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Alternative sources</span>
+                    <span class="feature-tag">Reliable backup</span>
+                    <span class="feature-tag">Good uptime</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="books" class="content-section">
+              <div class="breadcrumb">
+                <a href="#" onclick="switchContent('initial-content')">Home</a>
+                <span>›</span>
+                <span>Books</span>
+              </div>
+              <div class="section-header">
+                <h3>Books</h3>
+                <div class="section-stats">
+                  <div class="stat-item">
+                    <svg
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      ></path>
+                    </svg>
+                    <span>1 Library</span>
+                  </div>
+                </div>
+              </div>
+              <div class="resource-grid">
+                <div class="resource-card">
+                  <div class="resource-header">
+                    <a href="https://z-library.sk/" class="resource-title"
+                      >Z-Library</a
+                    >
+                    <div class="resource-badges">
+                      <span class="badge trusted">Largest</span>
+                      <span class="badge signup">Sign-up Required</span>
+                    </div>
+                  </div>
+                  <div class="resource-description">
+                    The world's largest ebook library with millions of books and
+                    articles. Requires account creation but worth it for the
+                    massive selection.
+                  </div>
+                  <div class="resource-features">
+                    <span class="feature-tag">Millions of books</span>
+                    <span class="feature-tag">Multiple formats</span>
+                    <span class="feature-tag">Academic papers</span>
+                    <span class="feature-tag">Regular updates</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="no-results" class="content-section" style="display: none">
+              <div class="no-results">
+                <svg
+                  width="48"
+                  height="48"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  style="margin: 0 auto 1rem; display: block; opacity: 0.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+                <p>No resources found matching your search.</p>
+                <p>Try a different search term or browse the categories.</p>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <span>© piracybound <span id="year"></span></span>
+            <a
+              href="#"
+              onclick="event.preventDefault(); window.location.href='mailto:'+atob('amFzb25AcGlyYWN5Ym91bmQuY29t')"
+              aria-label="Contact Email"
+              >uchks [at] piracybound [dot] com</a
+            >
+          </footer>
+        </div>
+      </main>
+
+      <div class="quick-actions">
+        <button
+          class="quick-action-btn back-to-top"
+          id="back-to-top"
+          aria-label="Back to top"
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <a
+      href="https://www.piracybound.com/manilua"
+      id="manilua-ad"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img src="https://www.piracybound.com/favicon.ico" alt="favicon" />
+      <div class="bubble-content">
+        <span class="bubble-title">manilua</span>
+        <span class="bubble-body"
+          >Your repository for Steam Manifests and Workshop downloads.</span
+        >
+      </div>
     </a>
 
+    <div id="toast" class="toast">
+      <span id="toast-message"></span>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.querySelector('.main-content');
-            const contentContainer = document.getElementById('content-container');
-            const navLinks = document.querySelectorAll('.nav-link');
+      document.addEventListener("DOMContentLoaded", () => {
+        const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.querySelector(".main-content");
+        const contentContainer = document.getElementById("content-container");
+        const navLinks = document.querySelectorAll(".nav-link");
+        const searchInput = document.getElementById("search-input");
+        const backToTopBtn = document.getElementById("back-to-top");
+        const randomBtn = document.getElementById("random-resource");
+        const toast = document.getElementById("toast");
+        const themeToggle = document.getElementById("theme-toggle");
+        const allContentSections = contentContainer.querySelectorAll('.content-section');
+        const resourceSections = contentContainer.querySelectorAll('.content-section:not(#initial-content):not(#no-results)');
 
-            document.getElementById('year').textContent = new Date().getFullYear();
+        document.getElementById("year").textContent = new Date().getFullYear();
 
-            const switchContent = (sectionId) => {
-                contentContainer.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.remove('active');
+        let isDarkMode = true;
+        themeToggle.addEventListener("click", () => {
+          isDarkMode = !isDarkMode;
+          document.body.classList.toggle("light-mode");
+          showToast(isDarkMode ? "Dark mode enabled" : "Light mode enabled");
+        });
+
+        function showToast(message) {
+          const toastMsg = document.getElementById("toast-message");
+          toastMsg.textContent = message;
+          toast.classList.add("show", "success");
+
+          setTimeout(() => {
+            toast.classList.remove("show");
+            setTimeout(() => toast.classList.remove("success"), 300);
+          }, 3000);
+        }
+
+        window.switchContent = (sectionId) => {
+          allContentSections.forEach((section) => {
+            section.classList.remove("active");
+          });
+
+          const targetSection = document.getElementById(sectionId);
+          if (targetSection) {
+            targetSection.classList.add("active");
+          } else {
+            document.getElementById("initial-content").classList.add("active");
+          }
+
+          navLinks.forEach((nav) => {
+            nav.classList.toggle("active", nav.dataset.section === sectionId);
+          });
+
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+             if (searchInput.value.trim().length > 0) {
+              searchInput.value = '';
+              searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            const sectionId = e.currentTarget.dataset.section;
+            switchContent(sectionId);
+            history.pushState(null, "", `#${sectionId}`);
+
+            if (window.innerWidth <= 768) {
+              sidebar.classList.remove("open");
+            }
+          });
+        });
+
+        searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            const noResultsSection = document.getElementById("no-results");
+
+            if (searchTerm === "") {
+                resourceSections.forEach(section => {
+                    section.classList.remove('searching');
+                    section.querySelectorAll('.resource-card').forEach(card => card.classList.remove('hidden'));
                 });
-
-                const targetSection = document.getElementById(sectionId);
-
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                } else {
-                    document.getElementById('initial-content').classList.add('active');
-                }
-
-                navLinks.forEach(nav => {
-                    nav.classList.toggle('active', nav.dataset.section === sectionId);
+                
+                navLinks.forEach(link => {
+                    const listItem = link.closest('.nav-list-item');
+                    listItem.classList.remove('hidden');
+                    const countSpan = link.querySelector('.item-count');
+                    countSpan.textContent = countSpan.dataset.originalCount;
                 });
-            };
+                
+                noResultsSection.classList.remove('active');
+                switchContent(window.location.hash.substring(1) || 'initial-content');
+                return;
+            }
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const sectionId = e.currentTarget.dataset.section;
-                    switchContent(sectionId);
+            let totalResults = 0;
+            allContentSections.forEach(section => section.classList.remove('active'));
 
-                    history.pushState(null, '', `#${sectionId}`);
+            resourceSections.forEach(section => {
+                let sectionResults = 0;
+                const resourceCards = section.querySelectorAll('.resource-card');
+                const navLink = document.querySelector(`.nav-link[data-section="${section.id}"]`);
 
-                    if (window.innerWidth <= 768) {
-                        sidebar.classList.remove('open');
+                resourceCards.forEach(card => {
+                    const cardText = card.innerText.toLowerCase();
+                    const isMatch = cardText.includes(searchTerm);
+                    card.classList.toggle('hidden', !isMatch);
+                    if (isMatch) {
+                        sectionResults++;
+                        totalResults++;
                     }
                 });
-            });
 
-            mobileMenuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                sidebar.classList.toggle('open');
-            });
-
-            mainContent.addEventListener('click', () => {
-                if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-                    sidebar.classList.remove('open');
+                if (navLink) {
+                   const countSpan = navLink.querySelector('.item-count');
+                   if (!countSpan.dataset.originalCount) {
+                        countSpan.dataset.originalCount = countSpan.textContent;
+                   }
+                   countSpan.textContent = sectionResults;
+                   navLink.closest('.nav-list-item').classList.toggle('hidden', sectionResults === 0);
                 }
+                
+                section.classList.toggle('searching', sectionResults > 0);
             });
 
-            window.addEventListener('popstate', () => {
-                const sectionId = window.location.hash.substring(1);
-                switchContent(sectionId || 'initial-content');
-            });
-
-            const initialSectionId = window.location.hash.substring(1);
-            switchContent(initialSectionId || 'initial-content');
+            noResultsSection.classList.toggle('active', totalResults === 0);
+            document.getElementById('initial-content').classList.remove('active');
         });
-    </script>
-</body>
 
+
+        window.addEventListener("scroll", () => {
+          if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add("visible");
+          } else {
+            backToTopBtn.classList.remove("visible");
+          }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          showToast("Scrolled to top");
+        });
+
+        randomBtn.addEventListener("click", () => {
+          const availableLinks = Array.from(navLinks).filter(
+            (link) => !link.parentElement.classList.contains("hidden")
+          );
+
+          if (availableLinks.length > 0) {
+            const randomLink =
+              availableLinks[Math.floor(Math.random() * availableLinks.length)];
+            const sectionId = randomLink.dataset.section;
+            switchContent(sectionId);
+            history.pushState(null, "", `#${sectionId}`);
+            showToast(
+              `Showing random section: ${randomLink.textContent.split(" ")[0]}`
+            );
+          }
+        });
+
+        mobileMenuToggle.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebar.classList.toggle("open");
+        });
+
+        mainContent.addEventListener("click", () => {
+          if (window.innerWidth <= 768 && sidebar.classList.contains("open")) {
+            sidebar.classList.remove("open");
+          }
+        });
+
+        window.addEventListener("popstate", () => {
+          const sectionId = window.location.hash.substring(1);
+          switchContent(sectionId || "initial-content");
+        });
+
+        const initialSectionId = window.location.hash.substring(1);
+        switchContent(initialSectionId || "initial-content");
+         
+        navLinks.forEach(link => {
+            const countSpan = link.querySelector('.item-count');
+            if (countSpan) {
+                countSpan.dataset.originalCount = countSpan.textContent;
+            }
+        });
+
+
+        document.addEventListener("click", (e) => {
+          if (e.target.closest(".resource-title")) {
+            const link = e.target.closest(".resource-title");
+            navigator.clipboard
+              .writeText(link.href)
+              .then(() => {
+                showToast("Link copied to clipboard!");
+              })
+              .catch(() => {
+                showToast("Failed to copy link");
+              });
+          }
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+            e.preventDefault();
+            searchInput.focus();
+            showToast("Search focused");
+          }
+
+          if (e.key === "Escape" && document.activeElement === searchInput) {
+            searchInput.value = "";
+            searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+            searchInput.blur();
+          }
+
+          if (e.key === "r" && document.activeElement.tagName !== 'INPUT') {
+            randomBtn.click();
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
