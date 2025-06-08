@@ -1852,6 +1852,7 @@
             ></path>
           </svg>
         </button>
+
       </div>
     </div>
 
@@ -1883,7 +1884,6 @@
         const navLinks = document.querySelectorAll(".nav-link");
         const searchInput = document.getElementById("search-input");
         const backToTopBtn = document.getElementById("back-to-top");
-        const randomBtn = document.getElementById("random-resource");
         const toast = document.getElementById("toast");
         const themeToggle = document.getElementById("theme-toggle");
         const allContentSections = contentContainer.querySelectorAll('.content-section');
@@ -2015,23 +2015,6 @@
           showToast("Scrolled to top");
         });
 
-        randomBtn.addEventListener("click", () => {
-          const availableLinks = Array.from(navLinks).filter(
-            (link) => !link.parentElement.classList.contains("hidden")
-          );
-
-          if (availableLinks.length > 0) {
-            const randomLink =
-              availableLinks[Math.floor(Math.random() * availableLinks.length)];
-            const sectionId = randomLink.dataset.section;
-            switchContent(sectionId);
-            history.pushState(null, "", `#${sectionId}`);
-            showToast(
-              `Showing random section: ${randomLink.textContent.split(" ")[0]}`
-            );
-          }
-        });
-
         mobileMenuToggle.addEventListener("click", (e) => {
           e.stopPropagation();
           sidebar.classList.toggle("open");
@@ -2084,10 +2067,6 @@
             searchInput.value = "";
             searchInput.dispatchEvent(new Event("input", { bubbles: true }));
             searchInput.blur();
-          }
-
-          if (e.key === "r" && document.activeElement.tagName !== 'INPUT') {
-            randomBtn.click();
           }
         });
       });
