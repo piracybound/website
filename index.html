@@ -738,31 +738,6 @@
         line-height: 1.4;
       }
 
-      .toast {
-        position: fixed;
-        top: 2rem;
-        right: 2rem;
-        background: var(--glass-bg);
-        backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid var(--glass-border);
-        border-radius: 12px;
-        padding: 1rem 1.25rem;
-        color: var(--text-primary);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        transform: translateX(100%);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1000;
-        max-width: 320px;
-      }
-
-      .toast.show {
-        transform: translateX(0);
-      }
-
-      .toast.success {
-        border-left: 4px solid var(--accent-green);
-      }
-
       .no-results {
         text-align: center;
         padding: 2rem;
@@ -1871,10 +1846,6 @@
       </div>
     </a>
 
-    <div id="toast" class="toast">
-      <span id="toast-message"></span>
-    </div>
-
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
@@ -1884,7 +1855,6 @@
         const navLinks = document.querySelectorAll(".nav-link");
         const searchInput = document.getElementById("search-input");
         const backToTopBtn = document.getElementById("back-to-top");
-        const toast = document.getElementById("toast");
         const themeToggle = document.getElementById("theme-toggle");
         const allContentSections = contentContainer.querySelectorAll('.content-section');
         const resourceSections = contentContainer.querySelectorAll('.content-section:not(#initial-content):not(#no-results)');
@@ -1895,19 +1865,7 @@
         themeToggle.addEventListener("click", () => {
           isDarkMode = !isDarkMode;
           document.body.classList.toggle("light-mode");
-          showToast(isDarkMode ? "Dark mode enabled" : "Light mode enabled");
         });
-
-        function showToast(message) {
-          const toastMsg = document.getElementById("toast-message");
-          toastMsg.textContent = message;
-          toast.classList.add("show", "success");
-
-          setTimeout(() => {
-            toast.classList.remove("show");
-            setTimeout(() => toast.classList.remove("success"), 300);
-          }, 3000);
-        }
 
         window.switchContent = (sectionId) => {
           allContentSections.forEach((section) => {
@@ -2012,7 +1970,6 @@
 
         backToTopBtn.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
-          showToast("Scrolled to top");
         });
 
         mobileMenuToggle.addEventListener("click", (e) => {
@@ -2047,12 +2004,6 @@
             const link = e.target.closest(".resource-title");
             navigator.clipboard
               .writeText(link.href)
-              .then(() => {
-                showToast("Link copied to clipboard!");
-              })
-              .catch(() => {
-                showToast("Failed to copy link");
-              });
           }
         });
 
@@ -2060,7 +2011,6 @@
           if ((e.ctrlKey || e.metaKey) && e.key === "k") {
             e.preventDefault();
             searchInput.focus();
-            showToast("Search focused");
           }
 
           if (e.key === "Escape" && document.activeElement === searchInput) {
