@@ -795,6 +795,25 @@
         font-style: italic;
       }
 
+      a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      a:hover {
+        color: var(--text-primary);
+      }
+
+      /* Ensure light mode works too */
+      body.light-mode a {
+        color: var(--text-secondary);
+      }
+
+      body.light-mode a:hover {
+        color: var(--text-primary);
+      }
+
       @media (max-width: 768px) {
         #mobile-menu-toggle {
           display: inline-flex;
@@ -1752,7 +1771,11 @@
                   </div>
                   <div class="resource-description">
                     Efficient ad-blocker with custom filter lists. Essential for
-                    safe browsing on piracy sites.
+                    safe browsing on piracy sites. - 
+                    <a
+                      href="https://github.com/arkenfox/user.js/wiki/4.1-Extensions/#-dont-bother"
+                      ><strong>Redundant Extensions</strong></a
+                    >
                   </div>
                   <div class="resource-features">
                     <span class="feature-tag">Ad blocking</span>
