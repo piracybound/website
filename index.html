@@ -116,10 +116,10 @@
         backdrop-filter: blur(24px) saturate(180%);
         border-right: 1px solid var(--glass-border);
       }
-      
+
       @media (max-width: 768px) {
         #sidebar {
-            transform: translateX(-100%);
+          transform: translateX(-100%);
         }
       }
 
@@ -146,7 +146,7 @@
         padding: 2.5rem;
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
       }
-      
+
       body.light-mode .main-content-card {
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
       }
@@ -177,13 +177,9 @@
         background-clip: text;
         letter-spacing: -0.02em;
       }
-      
+
       body.light-mode .sidebar-header h2 {
-        background: linear-gradient(
-          180deg,
-          #000 0%,
-          rgba(0, 0, 0, 0.8) 100%
-        );
+        background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.8) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -245,9 +241,9 @@
         border-color: var(--accent-blue);
         background: rgba(255, 255, 255, 0.08);
       }
-      
+
       body.light-mode .search-input:focus {
-         background: rgba(0, 0, 0, 0.08);
+        background: rgba(0, 0, 0, 0.08);
       }
 
       .search-input::placeholder {
@@ -288,9 +284,9 @@
         color: var(--text-primary);
         transform: translateX(4px);
       }
-      
+
       body.light-mode .nav-link:hover {
-         background: rgba(0, 0, 0, 0.05);
+        background: rgba(0, 0, 0, 0.05);
       }
 
       .nav-link.active {
@@ -298,13 +294,82 @@
         color: var(--text-primary);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
       }
-      
+
       body.light-mode .nav-link.active {
-         box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
       }
 
-      .nav-link.hidden, .nav-list-item.hidden {
+      .nav-link.hidden,
+      .nav-list-item.hidden {
         display: none;
+      }
+
+      .nav-list-item {
+        position: relative;
+      }
+
+      .nav-submenu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .nav-list-item.expanded .nav-submenu {
+        display: block;
+        animation: slideDown 0.3s ease;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .nav-sub-item {
+        margin: 0;
+      }
+
+      .nav-sub-link {
+        display: block;
+        padding: 0.5rem 1rem 0.5rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-weight: 400;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .nav-sub-link:before {
+        content: "•";
+        position: absolute;
+        left: 1.25rem;
+        color: var(--text-secondary);
+        opacity: 0.5;
+      }
+
+      .nav-sub-link:hover {
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-primary);
+        transform: translateX(2px);
+      }
+
+      body.light-mode .nav-sub-link:hover {
+        background: rgba(0, 0, 0, 0.03);
+      }
+
+      .nav-sub-link.active {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-blue);
+        font-weight: 500;
       }
 
       .item-count {
@@ -315,19 +380,19 @@
         border-radius: 6px;
         font-weight: 500;
       }
-      
+
       body.light-mode .item-count {
-         background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.1);
       }
 
       .content-section {
         display: none;
         animation: fadeIn 0.5s ease;
       }
-      
+
       .content-section.searching {
-          display: block !important;
-          animation: none !important;
+        display: block !important;
+        animation: none !important;
       }
 
       .content-section.active {
@@ -363,7 +428,7 @@
       .breadcrumb a:hover {
         color: #60a5fa;
       }
-      
+
       body.light-mode .breadcrumb a:hover {
         color: #0056b3;
       }
@@ -422,7 +487,7 @@
         gap: 1rem;
         margin-bottom: 2rem;
       }
-      
+
       .resource-card.hidden {
         display: none;
       }
@@ -436,10 +501,10 @@
         position: relative;
         overflow: hidden;
       }
-      
-       body.light-mode .resource-card {
+
+      body.light-mode .resource-card {
         background: rgba(0, 0, 0, 0.03);
-       }
+      }
 
       .resource-card:hover {
         background: rgba(255, 255, 255, 0.06);
@@ -447,7 +512,7 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
       }
-      
+
       body.light-mode .resource-card:hover {
         background: rgba(0, 0, 0, 0.06);
         box-shadow: 0 8px 24px rgba(0, 122, 255, 0.1);
@@ -531,7 +596,7 @@
         border-radius: 4px;
         font-size: 0.75rem;
       }
-      
+
       body.light-mode .feature-tag {
         background: rgba(0, 0, 0, 0.05);
       }
@@ -561,7 +626,7 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       }
-      
+
       body.light-mode .quick-action-btn {
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       }
@@ -572,7 +637,7 @@
         transform: translateY(-2px);
         box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
       }
-      
+
       body.light-mode .quick-action-btn:hover {
         box-shadow: 0 12px 32px rgba(0, 122, 255, 0.2);
       }
@@ -634,7 +699,7 @@
         background-color: rgba(255, 255, 255, 0.15);
         border-radius: 6px;
       }
-      
+
       body.light-mode .scrollbar-thin::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.15);
       }
@@ -643,7 +708,7 @@
         background-color: rgba(255, 255, 255, 0.25);
       }
 
-       body.light-mode .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+      body.light-mode .scrollbar-thin::-webkit-scrollbar-thumb:hover {
         background-color: rgba(0, 0, 0, 0.25);
       }
 
@@ -672,7 +737,7 @@
 
         animation: fadeInAd 0.5s ease 1s backwards;
       }
-      
+
       body.light-mode #manilua-ad {
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       }
@@ -693,7 +758,7 @@
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
         text-decoration: none;
       }
-      
+
       body.light-mode #manilua-ad:hover {
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
       }
@@ -873,25 +938,51 @@
               >
             </li>
             <li class="nav-list-item">
-              <a
-                href="#software-sites"
-                data-section="software-sites"
-                class="nav-link"
-                >Software Sites <span class="item-count">0</span></a
+              <a href="#software" data-section="software" class="nav-link"
+                >Software <span class="item-count">0</span></a
               >
             </li>
             <li class="nav-list-item">
-              <a
-                href="#streaming-sites"
-                data-section="streaming-sites"
-                class="nav-link"
-                >Streaming Sites <span class="item-count">0</span></a
+              <a href="#streaming" data-section="streaming" class="nav-link"
+                >Streaming <span class="item-count">0</span></a
               >
             </li>
             <li class="nav-list-item">
               <a href="#gaming" data-section="gaming" class="nav-link"
                 >Gaming <span class="item-count">0</span></a
               >
+              <ul class="nav-submenu">
+                <li class="nav-sub-item">
+                  <a
+                    href="#gaming"
+                    data-section="gaming"
+                    data-subsection="repackers"
+                    class="nav-sub-link"
+                  >
+                    Repackers
+                  </a>
+                </li>
+                <li class="nav-sub-item">
+                  <a
+                    href="#gaming"
+                    data-section="gaming"
+                    data-subsection="forums"
+                    class="nav-sub-link"
+                  >
+                    Forums
+                  </a>
+                </li>
+                <li class="nav-sub-item">
+                  <a
+                    href="#gaming"
+                    data-section="gaming"
+                    data-subsection="roms"
+                    class="nav-sub-link"
+                  >
+                    ROMs
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-list-item">
               <a href="#music" data-section="music" class="nav-link"
@@ -904,9 +995,34 @@
               >
             </li>
             <li class="nav-list-item">
-              <a href="#miscellaneous" data-section="miscellaneous" class="nav-link"
-                >Miscellaneous <span class="item-count">0</span></a
-              >
+              <a
+                href="#miscellaneous"
+                data-section="miscellaneous"
+                class="nav-link"
+                >Miscellaneous
+              </a>
+              <ul class="nav-submenu">
+                <li class="nav-sub-item">
+                  <a
+                    href="#miscellaneous"
+                    data-section="miscellaneous"
+                    data-subsection="browser-extensions"
+                    class="nav-sub-link"
+                  >
+                    Browser Extensions
+                  </a>
+                </li>
+                <li class="nav-sub-item">
+                  <a
+                    href="#miscellaneous"
+                    data-section="miscellaneous"
+                    data-subsection="informational"
+                    class="nav-sub-link"
+                  >
+                    Informational
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -1008,7 +1124,8 @@
                       >Mullvad</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
+                      <span class="badge trusted">Editor's Choice</span>
+                      <span class="badge caution">Paid</span>
                     </div>
                   </div>
                   <div class="resource-description">
@@ -1016,10 +1133,10 @@
                     capabilities. Based in Sweden with strong privacy laws.
                   </div>
                   <div class="resource-features">
-                    <span class="feature-tag">No-logs</span>
-                    <span class="feature-tag">WireGuard</span>
-                    <span class="feature-tag">Multi-hop</span>
-                    <span class="feature-tag">Sweden</span>
+                    <span class="feature-tag">Peer-to-Peer</span>
+                    <span class="feature-tag">Kill Switch</span>
+                    <span class="feature-tag">No Logs</span>
+                    <span class="feature-tag">Split Tunneling</span>
                   </div>
                 </div>
                 <div class="resource-card">
@@ -1028,7 +1145,6 @@
                       >ProtonVPN</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
                       <span class="badge free">Free Tier</span>
                     </div>
                   </div>
@@ -1037,9 +1153,11 @@
                     jurisdiction ensures strong privacy protection.
                   </div>
                   <div class="resource-features">
-                    <span class="feature-tag">SecureCore</span>
-                    <span class="feature-tag">Port forwarding</span>
-                    <span class="feature-tag">Switzerland</span>
+                    <span class="feature-tag">Peer-to-Peer</span>
+                    <span class="feature-tag">Port Forwarding</span>
+                    <span class="feature-tag">Kill Switch</span>
+                    <span class="feature-tag">No Logs</span>
+                    <span class="feature-tag">Split Tunneling</span>
                   </div>
                 </div>
                 <div class="resource-card">
@@ -1101,7 +1219,7 @@
                       >qBittorrent</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
+                      <span class="badge trusted">Editor's Choice</span>
                       <span class="badge free">Open Source</span>
                     </div>
                   </div>
@@ -1112,8 +1230,8 @@
                   <div class="resource-features">
                     <span class="feature-tag">Built-in search</span>
                     <span class="feature-tag">Media streaming</span>
-                    <span class="feature-tag">No ads</span>
                     <span class="feature-tag">Cross-platform</span>
+                    <span class="feature-tag">Lightweight</span>
                   </div>
                 </div>
                 <div class="resource-card">
@@ -1124,7 +1242,6 @@
                       >Deluge</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
                       <span class="badge free">Open Source</span>
                     </div>
                   </div>
@@ -1144,7 +1261,6 @@
                       >Transmission</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
                       <span class="badge free">Open Source</span>
                     </div>
                   </div>
@@ -1161,14 +1277,14 @@
               </div>
             </div>
 
-            <div id="software-sites" class="content-section">
+            <div id="software" class="content-section">
               <div class="breadcrumb">
                 <a href="#" onclick="switchContent('initial-content')">Home</a>
                 <span>›</span>
-                <span>Software Sites</span>
+                <span>Software</span>
               </div>
               <div class="section-header">
-                <h3>Software Sites</h3>
+                <h3>Software</h3>
                 <div class="section-stats">
                   <div class="stat-item">
                     <svg
@@ -1236,7 +1352,7 @@
               </div>
             </div>
 
-            <div id="streaming-sites" class="content-section">
+            <div id="streaming" class="content-section">
               <div class="breadcrumb">
                 <a href="#" onclick="switchContent('initial-content')">Home</a>
                 <span>›</span>
@@ -1265,26 +1381,27 @@
                 </div>
               </div>
 
-              <h4>Anime</h4>
+              <h4 id="anime">Anime</h4>
               <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
-                    <a href="https://hianime.to/" class="resource-title"
-                      >HiAnime</a
+                    <a href="https://aninow.to/" class="resource-title"
+                      >AniNow</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Popular</span>
-                      <span class="badge free">Free</span>
+                      <span class="badge trusted">Editor's Choice</span>
                     </div>
                   </div>
                   <div class="resource-description">
-                    High-quality anime streaming with multiple servers and
-                    subtitle options. Clean interface with minimal ads.
+                    Your premier destination for anime streaming. Experience a
+                    carefully curated selection of high-quality content, powered
+                    by a passionate community of anime enthusiasts.
                   </div>
                   <div class="resource-features">
-                    <span class="feature-tag">HD quality</span>
-                    <span class="feature-tag">Multiple servers</span>
-                    <span class="feature-tag">Subtitles</span>
+                    <span class="feature-tag">No Ads</span>
+                    <span class="feature-tag">No Anti-Adblock</span>
+                    <span class="feature-tag">Comments</span>
+                    <span class="feature-tag">Mobile friendly</span>
                   </div>
                 </div>
                 <div class="resource-card">
@@ -1292,23 +1409,22 @@
                     <a href="https://anicrush.to/" class="resource-title"
                       >AniCrush</a
                     >
-                    <div class="resource-badges">
-                      <span class="badge free">Free</span>
-                    </div>
                   </div>
                   <div class="resource-description">
-                    Alternative anime streaming site with good selection and
-                    reliable servers.
+                    An anime haven, where all your anime dreams come true, at no
+                    cost to you and with utmost safety. Just like the world of
+                    Sword Art Online, but without the fear of getting trapped!
                   </div>
                   <div class="resource-features">
-                    <span class="feature-tag">Large library</span>
-                    <span class="feature-tag">Fast loading</span>
+                    <span class="feature-tag">No Ads</span>
+                    <span class="feature-tag">No Anti-Adblock</span>
+                    <span class="feature-tag">Comments</span>
                     <span class="feature-tag">Mobile friendly</span>
                   </div>
                 </div>
               </div>
 
-              <h4>Sports</h4>
+              <h4 id="sports">Sports</h4>
               <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
@@ -1316,17 +1432,17 @@
                       >StreamEast</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Popular</span>
                       <span class="badge caution">Ads</span>
                     </div>
                   </div>
                   <div class="resource-description">
-                    Popular sports streaming site covering NFL, NBA, MLB, and
-                    more. Use ad blocker for best experience.
+                    Your free sports streaming home. Popular sports streaming
+                    site covering NFL, NBA, MLB, and more. Use uBlock Origin for
+                    the best experience.
                   </div>
                   <div class="resource-features">
                     <span class="feature-tag">Live sports</span>
-                    <span class="feature-tag">Multiple sports</span>
+                    <span class="feature-tag">Multiple servers</span>
                     <span class="feature-tag">HD streams</span>
                   </div>
                 </div>
@@ -1336,7 +1452,7 @@
                       >Sportsurge</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Aggregator</span>
+                      <span class="badge free">Aggregator</span>
                     </div>
                   </div>
                   <div class="resource-description">
@@ -1346,7 +1462,6 @@
                   <div class="resource-features">
                     <span class="feature-tag">Multiple sources</span>
                     <span class="feature-tag">All sports</span>
-                    <span class="feature-tag">Link aggregator</span>
                   </div>
                 </div>
               </div>
@@ -1381,7 +1496,7 @@
                 </div>
               </div>
 
-              <h4>PC Games</h4>
+              <h4 id="repackers">Repackers</h4>
               <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
@@ -1391,7 +1506,7 @@
                       >FitGirl Repacks</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Most Trusted</span>
+                      <span class="badge trusted">Editor's Choice</span>
                     </div>
                   </div>
                   <div class="resource-description">
@@ -1410,9 +1525,6 @@
                     <a href="https://dodi-repacks.site/" class="resource-title"
                       >DODI Repacks</a
                     >
-                    <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
-                    </div>
                   </div>
                   <div class="resource-description">
                     Active repacker with frequent updates and good compression
@@ -1425,14 +1537,17 @@
                     <span class="feature-tag">Good compression</span>
                   </div>
                 </div>
+              </div>
+
+              <h4 id="forums">Forums</h4>
+              <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
                     <a href="https://cs.rin.ru/" class="resource-title"
                       >cs.rin.ru</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Clean Files</span>
-                      <span class="badge signup">Account Required</span>
+                      <span class="badge signup">Sign-up Required</span>
                     </div>
                   </div>
                   <div class="resource-description">
@@ -1448,16 +1563,13 @@
                 </div>
               </div>
 
-              <h4>ROMs & Emulation</h4>
+              <h4 id="roms">ROMs</h4>
               <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
                     <a href="https://vimm.net/vault/" class="resource-title"
                       >Vimm's Lair: Vault</a
                     >
-                    <div class="resource-badges">
-                      <span class="badge trusted">Most Trusted</span>
-                    </div>
                   </div>
                   <div class="resource-description">
                     The most trusted source for console ROMs. Clean files, no
@@ -1465,7 +1577,6 @@
                   </div>
                   <div class="resource-features">
                     <span class="feature-tag">DDL & Torrent</span>
-                    <span class="feature-tag">All consoles</span>
                     <span class="feature-tag">No ads</span>
                     <span class="feature-tag">Preservation focused</span>
                   </div>
@@ -1505,7 +1616,7 @@
                   </div>
                   <div class="resource-features">
                     <span class="feature-tag">DDL only</span>
-                    <span class="feature-tag">Switch games</span>
+                    <span class="feature-tag">Switch</span>
                     <span class="feature-tag">Updates included</span>
                     <span class="feature-tag">NSP/XCI formats</span>
                   </div>
@@ -1537,7 +1648,7 @@
                         d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
                       ></path>
                     </svg>
-                    <span class="section-count">0 Services</span>
+                    <span class="section-count">0 Service(s)</span>
                   </div>
                 </div>
               </div>
@@ -1547,41 +1658,18 @@
                     <a href="https://lucida.to" class="resource-title"
                       >lucida.to</a
                     >
-                    <div class="resource-badges">
-                      <span class="badge trusted">Primary</span>
-                      <span class="badge free">Free</span>
-                    </div>
                   </div>
                   <div class="resource-description">
                     Music downloader merging Slavart & DoubleDouble features.
                     Supports multiple streaming services with high quality
                     downloads.
+                    <strong>Redirects to DoubleDouble when down.</strong>
                   </div>
                   <div class="resource-features">
                     <span class="feature-tag">Multiple services</span>
                     <span class="feature-tag">High quality</span>
                     <span class="feature-tag">Fast downloads</span>
                     <span class="feature-tag">Clean interface</span>
-                  </div>
-                </div>
-                <div class="resource-card">
-                  <div class="resource-header">
-                    <a href="https://doubledouble.top/" class="resource-title"
-                      >doubledouble.top</a
-                    >
-                    <div class="resource-badges">
-                      <span class="badge trusted">Backup</span>
-                      <span class="badge free">Free</span>
-                    </div>
-                  </div>
-                  <div class="resource-description">
-                    Supports services lucida does not. Good alternative when the
-                    primary service is down or doesn't have what you need.
-                  </div>
-                  <div class="resource-features">
-                    <span class="feature-tag">Alternative sources</span>
-                    <span class="feature-tag">Reliable backup</span>
-                    <span class="feature-tag">Good uptime</span>
                   </div>
                 </div>
               </div>
@@ -1622,7 +1710,6 @@
                       >Z-Library</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Largest</span>
                       <span class="badge signup">Sign-up Required</span>
                     </div>
                   </div>
@@ -1649,28 +1736,10 @@
               </div>
               <div class="section-header">
                 <h3>Miscellaneous</h3>
-                <div class="section-stats">
-                  <div class="stat-item">
-                    <svg
-                      width="16"
-                      height="16"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                      ></path>
-                    </svg>
-                    <span class="section-count">0 Tools</span>
-                  </div>
-                </div>
+                <div class="section-stats"></div>
               </div>
 
-              <h4>Browser Extensions</h4>
+              <h4 id="browser-extensions">Browser Extensions</h4>
               <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
@@ -1679,7 +1748,6 @@
                     >
                     <div class="resource-badges">
                       <span class="badge trusted">Essential</span>
-                      <span class="badge free">Free</span>
                     </div>
                   </div>
                   <div class="resource-description">
@@ -1697,10 +1765,6 @@
                     <a href="https://privacybadger.org/" class="resource-title"
                       >Privacy Badger</a
                     >
-                    <div class="resource-badges">
-                      <span class="badge trusted">Trusted</span>
-                      <span class="badge free">Free</span>
-                    </div>
                   </div>
                   <div class="resource-description">
                     Blocks trackers automatically while browsing. Learns and
@@ -1717,9 +1781,6 @@
                     <a href="https://fastforward.team/" class="resource-title"
                       >FastForward</a
                     >
-                    <div class="resource-badges">
-                      <span class="badge free">Free</span>
-                    </div>
                   </div>
                   <div class="resource-description">
                     Circumvent link shorteners and skip annoying redirect pages.
@@ -1733,20 +1794,22 @@
                 </div>
               </div>
 
-              <h4>Informational</h4>
+              <h4 id="informational">Informational</h4>
               <div class="resource-grid">
                 <div class="resource-card">
                   <div class="resource-header">
-                    <a href="https://securityplanner.consumerreports.org/tool/install-https-everywhere" class="resource-title"
+                    <a
+                      href="https://securityplanner.consumerreports.org/tool/install-https-everywhere"
+                      class="resource-title"
                       >HTTPS Everywhere</a
                     >
                     <div class="resource-badges">
-                      <span class="badge trusted">Guide</span>
-                      <span class="badge free">Free</span>
+                      <span class="badge free">Guide</span>
                     </div>
                   </div>
                   <div class="resource-description">
-                    Ensure secure connections while browsing by enabling HTTPs Everywhere.
+                    Ensure secure connections while browsing by enabling HTTPs
+                    Everywhere.
                   </div>
                   <div class="resource-features">
                     <span class="feature-tag">Browser setup</span>
@@ -1839,8 +1902,11 @@
         const searchInput = document.getElementById("search-input");
         const backToTopBtn = document.getElementById("back-to-top");
         const themeToggle = document.getElementById("theme-toggle");
-        const allContentSections = contentContainer.querySelectorAll('.content-section');
-        const resourceSections = contentContainer.querySelectorAll('.content-section:not(#initial-content):not(#no-results)');
+        const allContentSections =
+          contentContainer.querySelectorAll(".content-section");
+        const resourceSections = contentContainer.querySelectorAll(
+          ".content-section:not(#initial-content):not(#no-results)"
+        );
 
         document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -1851,69 +1917,69 @@
         });
 
         function updateAllStats() {
-          const totalCategories = document.querySelectorAll('.nav-link[data-section]').length;
-          const totalResources = document.querySelectorAll('.resource-card').length;
-          
-          navLinks.forEach(link => {
+          const totalCategories = document.querySelectorAll(
+            ".nav-link[data-section]"
+          ).length;
+          const totalResources =
+            document.querySelectorAll(".resource-card").length;
+
+          navLinks.forEach((link) => {
             const sectionId = link.dataset.section;
             const section = document.getElementById(sectionId);
             if (section) {
-              const resourceCount = section.querySelectorAll('.resource-card').length;
-              const countSpan = link.querySelector('.item-count');
+              const resourceCount =
+                section.querySelectorAll(".resource-card").length;
+              const countSpan = link.querySelector(".item-count");
               if (countSpan) {
                 countSpan.textContent = resourceCount;
                 countSpan.dataset.originalCount = resourceCount;
               }
             }
           });
-          
-          const totalResourcesSpan = document.getElementById('total-resources');
-          const totalCategoriesSpan = document.getElementById('total-categories');
-          
-          if (totalResourcesSpan) totalResourcesSpan.textContent = `${totalResources}+ Resources`;
-          if (totalCategoriesSpan) totalCategoriesSpan.textContent = `${totalCategories} Categories`;
-          
-          resourceSections.forEach(section => {
-            const sectionStats = section.querySelector('.section-stats');
+
+          const totalResourcesSpan = document.getElementById("total-resources");
+          const totalCategoriesSpan =
+            document.getElementById("total-categories");
+
+          if (totalResourcesSpan)
+            totalResourcesSpan.textContent = `${totalResources}+ Resources`;
+          if (totalCategoriesSpan)
+            totalCategoriesSpan.textContent = `${totalCategories} Categories`;
+
+          resourceSections.forEach((section) => {
+            const sectionStats = section.querySelector(".section-stats");
             if (sectionStats) {
-              const resourceCount = section.querySelectorAll('.resource-card').length;
-              const statSpan = sectionStats.querySelector('.section-count');
+              const resourceCount =
+                section.querySelectorAll(".resource-card").length;
+              const statSpan = sectionStats.querySelector(".section-count");
               if (statSpan) {
                 const sectionId = section.id;
-                let statType = 'Resources';
-                
-                switch(sectionId) {
-                  case 'vpn':
-                    statType = 'Services';
+                let statType = "";
+
+                switch (sectionId) {
+                  case "vpn":
+                    statType = "Service(s)";
                     break;
-                  case 'torrent-clients':
-                    statType = 'Clients';
+                  case "torrent-clients":
+                    statType = "Client(s)";
                     break;
-                  case 'browser-extensions':
-                    statType = 'Extensions';
+                  case "software":
+                    statType = "Site(s)";
                     break;
-                  case 'software-sites':
-                    statType = 'Sites';
+                  case "streaming":
+                    statType = "Site(s)";
                     break;
-                  case 'streaming-sites':
-                    statType = 'Sites';
+                  case "gaming":
+                    statType = "Source(s)";
                     break;
-                  case 'gaming':
-                    statType = 'Sources';
+                  case "music":
+                    statType = "Service(s)";
                     break;
-                  case 'music':
-                    statType = 'Services';
+                  case "books":
+                    statType = "Libraries";
                     break;
-                  case 'books':
-                    statType = 'Libraries';
-                    break;
-                  case 'miscellaneous':
-                    statType = 'Tools';
-                    break;
-                  default:
-                    statType = 'Resources';
                 }
-                
+
                 statSpan.textContent = `${resourceCount} ${statType}`;
               }
             }
@@ -1933,83 +1999,188 @@
           }
 
           navLinks.forEach((nav) => {
-            nav.classList.toggle("active", nav.dataset.section === sectionId);
+            const isActive = nav.dataset.section === sectionId;
+            nav.classList.toggle("active", isActive);
+
+            const listItem = nav.closest(".nav-list-item");
+            if (isActive && listItem.querySelector(".nav-submenu")) {
+              listItem.classList.add("expanded");
+            } else {
+              listItem.classList.remove("expanded");
+            }
+          });
+
+          document.querySelectorAll(".nav-sub-link").forEach((link) => {
+            link.classList.remove("active");
           });
 
           window.scrollTo({ top: 0, behavior: "smooth" });
         };
 
-        navLinks.forEach((link) => {
-          link.addEventListener("click", (e) => {
-            e.preventDefault();
-             if (searchInput.value.trim().length > 0) {
-              searchInput.value = '';
-              searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-            const sectionId = e.currentTarget.dataset.section;
-            switchContent(sectionId);
-            history.pushState(null, "", `#${sectionId}`);
+        function initializeNavigation() {
+          navLinks.forEach((link) => {
+            const listItem = link.closest(".nav-list-item");
+            const submenu = listItem.querySelector(".nav-submenu");
 
-            if (window.innerWidth <= 768) {
-              sidebar.classList.remove("open");
+            if (submenu) {
+              link.classList.add("has-submenu");
+
+              link.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                if (searchInput.value.trim().length > 0) {
+                  searchInput.value = "";
+                  searchInput.dispatchEvent(
+                    new Event("input", { bubbles: true })
+                  );
+                }
+
+                const sectionId = link.dataset.section;
+
+                document
+                  .querySelectorAll(".nav-list-item.expanded")
+                  .forEach((item) => {
+                    if (item !== listItem) {
+                      item.classList.remove("expanded");
+                    }
+                  });
+
+                listItem.classList.toggle("expanded");
+
+                switchContent(sectionId);
+                history.pushState(null, "", `#${sectionId}`);
+
+                if (window.innerWidth <= 768) {
+                  sidebar.classList.remove("open");
+                }
+              });
+            } else {
+              link.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (searchInput.value.trim().length > 0) {
+                  searchInput.value = "";
+                  searchInput.dispatchEvent(
+                    new Event("input", { bubbles: true })
+                  );
+                }
+                const sectionId = e.currentTarget.dataset.section;
+                switchContent(sectionId);
+                history.pushState(null, "", `#${sectionId}`);
+
+                if (window.innerWidth <= 768) {
+                  sidebar.classList.remove("open");
+                }
+              });
             }
           });
-        });
+
+          document.querySelectorAll(".nav-sub-link").forEach((subLink) => {
+            subLink.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+
+              if (searchInput.value.trim().length > 0) {
+                searchInput.value = "";
+                searchInput.dispatchEvent(
+                  new Event("input", { bubbles: true })
+                );
+              }
+
+              const sectionId = subLink.dataset.section;
+              const subsectionId = subLink.dataset.subsection;
+
+              document.querySelectorAll(".nav-sub-link").forEach((link) => {
+                link.classList.remove("active");
+              });
+
+              subLink.classList.add("active");
+
+              switchContent(sectionId);
+
+              setTimeout(() => {
+                const subsectionElement = document.getElementById(subsectionId);
+                if (subsectionElement) {
+                  const offsetTop = subsectionElement.offsetTop - 100;
+                  window.scrollTo({
+                    top: offsetTop,
+                    behavior: "smooth",
+                  });
+                }
+              }, 300);
+
+              history.pushState(null, "", `#${sectionId}`);
+
+              if (window.innerWidth <= 768) {
+                sidebar.classList.remove("open");
+              }
+            });
+          });
+        }
 
         searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase().trim();
-            const noResultsSection = document.getElementById("no-results");
+          const searchTerm = e.target.value.toLowerCase().trim();
+          const noResultsSection = document.getElementById("no-results");
 
-            if (searchTerm === "") {
-                resourceSections.forEach(section => {
-                    section.classList.remove('searching');
-                    section.querySelectorAll('.resource-card').forEach(card => card.classList.remove('hidden'));
-                });
-                
-                navLinks.forEach(link => {
-                    const listItem = link.closest('.nav-list-item');
-                    listItem.classList.remove('hidden');
-                    const countSpan = link.querySelector('.item-count');
-                    countSpan.textContent = countSpan.dataset.originalCount;
-                });
-                
-                noResultsSection.classList.remove('active');
-                switchContent(window.location.hash.substring(1) || 'initial-content');
-                return;
-            }
-
-            let totalResults = 0;
-            allContentSections.forEach(section => section.classList.remove('active'));
-
-            resourceSections.forEach(section => {
-                let sectionResults = 0;
-                const resourceCards = section.querySelectorAll('.resource-card');
-                const navLink = document.querySelector(`.nav-link[data-section="${section.id}"]`);
-
-                resourceCards.forEach(card => {
-                    const cardText = card.innerText.toLowerCase();
-                    const isMatch = cardText.includes(searchTerm);
-                    card.classList.toggle('hidden', !isMatch);
-                    if (isMatch) {
-                        sectionResults++;
-                        totalResults++;
-                    }
-                });
-
-                if (navLink) {
-                   const countSpan = navLink.querySelector('.item-count');
-                   if (!countSpan.dataset.originalCount) {
-                        countSpan.dataset.originalCount = countSpan.textContent;
-                   }
-                   countSpan.textContent = sectionResults;
-                   navLink.closest('.nav-list-item').classList.toggle('hidden', sectionResults === 0);
-                }
-                
-                section.classList.toggle('searching', sectionResults > 0);
+          if (searchTerm === "") {
+            resourceSections.forEach((section) => {
+              section.classList.remove("searching");
+              section
+                .querySelectorAll(".resource-card")
+                .forEach((card) => card.classList.remove("hidden"));
             });
 
-            noResultsSection.classList.toggle('active', totalResults === 0);
-            document.getElementById('initial-content').classList.remove('active');
+            navLinks.forEach((link) => {
+              const listItem = link.closest(".nav-list-item");
+              listItem.classList.remove("hidden");
+              const countSpan = link.querySelector(".item-count");
+              countSpan.textContent = countSpan.dataset.originalCount;
+            });
+
+            noResultsSection.classList.remove("active");
+            switchContent(
+              window.location.hash.substring(1) || "initial-content"
+            );
+            return;
+          }
+
+          let totalResults = 0;
+          allContentSections.forEach((section) =>
+            section.classList.remove("active")
+          );
+
+          resourceSections.forEach((section) => {
+            let sectionResults = 0;
+            const resourceCards = section.querySelectorAll(".resource-card");
+            const navLink = document.querySelector(
+              `.nav-link[data-section="${section.id}"]`
+            );
+
+            resourceCards.forEach((card) => {
+              const cardText = card.innerText.toLowerCase();
+              const isMatch = cardText.includes(searchTerm);
+              card.classList.toggle("hidden", !isMatch);
+              if (isMatch) {
+                sectionResults++;
+                totalResults++;
+              }
+            });
+
+            if (navLink) {
+              const countSpan = navLink.querySelector(".item-count");
+              if (!countSpan.dataset.originalCount) {
+                countSpan.dataset.originalCount = countSpan.textContent;
+              }
+              countSpan.textContent = sectionResults;
+              navLink
+                .closest(".nav-list-item")
+                .classList.toggle("hidden", sectionResults === 0);
+            }
+
+            section.classList.toggle("searching", sectionResults > 0);
+          });
+
+          noResultsSection.classList.toggle("active", totalResults === 0);
+          document.getElementById("initial-content").classList.remove("active");
         });
 
         window.addEventListener("scroll", () => {
@@ -2056,6 +2227,7 @@
         const initialSectionId = window.location.hash.substring(1);
         switchContent(initialSectionId || "initial-content");
         updateAllStats();
+        initializeNavigation();
       });
     </script>
   </body>
