@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>piracybound</title>
+  <meta name="description" content="piracybound - your guide to digital freedom." />
+  <meta name="author" content="piracybound" />
+  <meta name="theme-color" content="#000000" />
+  <script type="module" crossorigin src="/assets/index-B8MDnp0d.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CG7e6eLo.css">
+</head>
+
+<body>
+  <svg style="display: none">
+    <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+      <feTurbulence type="fractalNoise" baseFrequency="0.001 0.003" numOctaves="1" seed="17" result="turbulence" />
+
+      <feComponentTransfer in="turbulence" result="mapped">
+        <feFuncR type="gamma" amplitude="1" exponent="8" offset="0.5" />
+        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+      </feComponentTransfer>
+
+      <feGaussianBlur in="turbulence" stdDeviation="2" result="softMap" />
+
+      <feSpecularLighting in="softMap" surfaceScale="3" specularConstant="0.8" specularExponent="80"
+        lighting-color="white" result="specLight">
+        <fePointLight x="-150" y="-150" z="250" />
+      </feSpecularLighting>
+
+      <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+
+      <feDisplacementMap in="SourceGraphic" in2="softMap" scale="120" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div id="root"></div>
+</body>
+
+</html>
