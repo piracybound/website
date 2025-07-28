@@ -237,12 +237,12 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         badgeTexts: {},
         features: ['Skip redirects', 'Bypass shorteners', 'Time saver', 'Open Source'],
         extensionInstallUrls: {
-          chrome: 'https://chrome.google.com/webstore/detail/fastforward/icallnadddjmdinamnolclfjanhfoahd',
+          chrome: 'https://chromewebstore.google.com/detail/fastforward/icallnadddjmdinamnolclfjanhfoafe',
           firefox: 'https://addons.mozilla.org/firefox/downloads/latest/fastforwardteam/addon-4258067.xpi',
           edge: 'https://microsoftedge.microsoft.com/addons/detail/fastforward/icallnadddjmdinamnolclfjanhfoahd'
         },
         extensionIds: {
-          chrome: 'icallnadddjmdinamnolclfjanhfoahd',
+          chrome: 'icallnadddjmdinamnolclfjanhfoafe',
           firefox: 'fastforwardteam',
           edge: 'icallnadddjmdinamnolclfjanhfoahd'
         }
@@ -256,12 +256,12 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         badgeTexts: {},
         features: ['Open Source'],
         extensionInstallUrls: {
-          chrome: 'https://chrome.google.com/webstore/detail/terms-of-service-didnt-re/ajjocmcklnkavgkjlsfbceajdagfehij',
+          chrome: 'https://chromewebstore.google.com/detail/terms-of-service-didn%E2%80%99t-r/hjdoplcnndgiblooccencgcggcoihigg',
           firefox: 'https://addons.mozilla.org/firefox/downloads/file/4464742/terms_of_service_didnt_read-5.1.1.xpi',
           edge: 'https://microsoftedge.microsoft.com/addons/detail/terms-of-service-didnt-re/ajjocmcklnkavgkjlsfbceajdagfehij'
         },
         extensionIds: {
-          chrome: 'ajjocmcklnkavgkjlsfbceajdagfehij',
+          chrome: 'hjdoplcnndgiblooccencgcggcoihigg',
           firefox: 'terms_of_service_didnt_read',
           edge: 'ajjocmcklnkavgkjlsfbceajdagfehij'
         }
@@ -275,12 +275,12 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         badgeTexts: {},
         features: ['Open Source'],
         extensionInstallUrls: {
-          chrome: 'https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccheecdegfnmekj',
+          chrome: 'https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag',
           firefox: 'https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/addon-4455138.xpi',
           edge: 'https://microsoftedge.microsoft.com/addons/detail/violentmonkey/jinjaccalgkegednnccheecdegfnmekj'
         },
         extensionIds: {
-          chrome: 'jinjaccalgkegednnccheecdegfnmekj',
+          chrome: 'jinjaccalgkegednnccohejagnlnfdag',
           firefox: 'violentmonkey',
           edge: 'jinjaccalgkegednnccheecdegfnmekj'
         }
