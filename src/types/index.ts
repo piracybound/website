@@ -1,3 +1,5 @@
+import type { ExtensionInstallUrls } from '@/utils/browserDetection';
+
 export interface Resource {
   id: string;
   title: string;
@@ -8,6 +10,9 @@ export interface Resource {
   features: string[];
   status?: 'online' | 'offline' | 'checking' | 'unknown';
   lastChecked?: Date;
+  extensionInstallUrls?: ExtensionInstallUrls;
+  extensionIds?: Record<string, string>;
+  userScriptUrl?: string;
 }
 
 export type BadgeType = 'trusted' | 'free' | 'signup' | 'caution';

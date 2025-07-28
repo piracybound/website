@@ -484,6 +484,7 @@ body::before {
 }
 
 @keyframes sidebarShimmer {
+
   0%,
   100% {
     opacity: 1;
@@ -1718,4 +1719,309 @@ body.light-mode a:hover {
     align-items: flex-start;
     gap: 0.5rem;
   }
+}
+
+.extension-install-container,
+.userscript-install-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.extension-install-btn,
+.userscript-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 768px) {
+  .extension-install-btn,
+  .userscript-install-btn {
+    justify-content: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+.extension-install-btn,
+.userscript-install-btn {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent-blue);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.extension-install-btn:hover,
+.userscript-install-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.extension-install-btn:focus,
+.userscript-install-btn:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.extension-install-btn svg,
+.userscript-install-btn svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.extension-install-btn:hover svg,
+.userscript-install-btn:hover svg {
+  transform: scale(1.1);
+}
+
+.extension-info-btn {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.extension-info-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: var(--accent-blue);
+}
+
+.extension-info-btn:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .extension-install-container {
+    width: 100%;
+    gap: 0.5rem;
+  }
+  
+  .extension-info-btn {
+    flex-shrink: 0;
+  }
+}
+
+.install-error {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 6px;
+  margin: 0.5rem 0;
+}
+
+.error-message {
+  color: var(--danger-red);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.extension-install-info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.extension-install-info {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideInScale 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+  .extension-install-info-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  
+  .extension-install-info {
+    max-height: 90vh;
+    border-radius: 12px 12px 0 0;
+    animation: slideInUp 0.3s ease-out;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.info-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.info-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.info-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.info-content {
+  padding: 0 1.5rem;
+}
+
+.install-steps {
+  list-style: none;
+  counter-reset: step-counter;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.install-steps li {
+  counter-increment: step-counter;
+  position: relative;
+  padding: 0.75rem 0 0.75rem 3rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.install-steps li:last-child {
+  border-bottom: none;
+}
+
+.install-steps li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  background: var(--accent-blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.info-note svg {
+  color: var(--accent-blue);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.info-note span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.info-actions {
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-got-it {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-got-it:hover {
+  background: color-mix(in srgb, var(--accent-blue) 80%, white);
+  transform: translateY(-1px);
 }

@@ -78,6 +78,15 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
       badgeTexts: { trusted: 'Essential', free: 'Open Source' },
       features: ['Windows activation', 'Office activation', 'Official methods', 'Safe & clean']
     },
+    {
+      id: 'ida',
+      title: 'hexrays.su ',
+      url: 'https://hexrays.su/',
+      description: 'hexrays.su is for downloading IDA Pro, free. IDA Pro is a powerful tool for reverse engineering and malware analysis. It is a must-have for any security professional.',
+      badges: [],
+      badgeTexts: {},
+      features: ['Safe & clean', 'Multi-platform']
+    },
   ],
   streaming: {
     anime: [
@@ -205,7 +214,19 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         description: 'Efficient ad-blocker with custom filter lists. Essential for safe browsing on piracy sites.',
         badges: ['trusted'],
         badgeTexts: { trusted: 'Essential' },
-        features: ['Ad blocking', 'Custom filters', 'Low memory usage', 'Open Source']
+        features: ['Ad blocking', 'Custom filters', 'Low memory usage', 'Open Source'],
+        extensionInstallUrls: {
+          chrome: 'https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm',
+          firefox: 'https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/addon-607454.xpi',
+          edge: 'https://microsoftedge.microsoft.com/addons/detail/ublock-origin/odfafepnkmbhccpbejfiebekmecfaddb',
+          safari: 'https://apps.apple.com/app/ublock-origin/id1547916070'
+        },
+        extensionIds: {
+          chrome: 'cjpalhdlnbpafiamejdnhcphjbkeiagm',
+          firefox: 'ublock-origin',
+          edge: 'odfafepnkmbhccpbejfiebekmecfaddb',
+          safari: '1547916070'
+        }
       },
       {
         id: 'fastforward',
@@ -214,7 +235,17 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         description: 'Circumvent link shorteners and skip annoying redirect pages. Saves time and reduces exposure to ads.',
         badges: [],
         badgeTexts: {},
-        features: ['Skip redirects', 'Bypass shorteners', 'Time saver', 'Open Source']
+        features: ['Skip redirects', 'Bypass shorteners', 'Time saver', 'Open Source'],
+        extensionInstallUrls: {
+          chrome: 'https://chrome.google.com/webstore/detail/fastforward/icallnadddjmdinamnolclfjanhfoahd',
+          firefox: 'https://addons.mozilla.org/firefox/downloads/latest/fastforwardteam/addon-4258067.xpi',
+          edge: 'https://microsoftedge.microsoft.com/addons/detail/fastforward/icallnadddjmdinamnolclfjanhfoahd'
+        },
+        extensionIds: {
+          chrome: 'icallnadddjmdinamnolclfjanhfoahd',
+          firefox: 'fastforwardteam',
+          edge: 'icallnadddjmdinamnolclfjanhfoahd'
+        }
       },
       {
         id: 'tosdr',
@@ -223,7 +254,17 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         description: 'Grades websites based on their Terms of Service agreements and Privacy Policies. It also gives short summaries of those agreements.',
         badges: [],
         badgeTexts: {},
-        features: ['Open Source']
+        features: ['Open Source'],
+        extensionInstallUrls: {
+          chrome: 'https://chrome.google.com/webstore/detail/terms-of-service-didnt-re/ajjocmcklnkavgkjlsfbceajdagfehij',
+          firefox: 'https://addons.mozilla.org/firefox/downloads/file/4464742/terms_of_service_didnt_read-5.1.1.xpi',
+          edge: 'https://microsoftedge.microsoft.com/addons/detail/terms-of-service-didnt-re/ajjocmcklnkavgkjlsfbceajdagfehij'
+        },
+        extensionIds: {
+          chrome: 'ajjocmcklnkavgkjlsfbceajdagfehij',
+          firefox: 'terms_of_service_didnt_read',
+          edge: 'ajjocmcklnkavgkjlsfbceajdagfehij'
+        }
       },
       {
         id: 'violentmonkey',
@@ -232,7 +273,17 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         description: 'Browser UserScript Manager, used for loading in Userscripts that work similar to Browser Extensions.',
         badges: [],
         badgeTexts: {},
-        features: ['Open Source']
+        features: ['Open Source'],
+        extensionInstallUrls: {
+          chrome: 'https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccheecdegfnmekj',
+          firefox: 'https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/addon-4455138.xpi',
+          edge: 'https://microsoftedge.microsoft.com/addons/detail/violentmonkey/jinjaccalgkegednnccheecdegfnmekj'
+        },
+        extensionIds: {
+          chrome: 'jinjaccalgkegednnccheecdegfnmekj',
+          firefox: 'violentmonkey',
+          edge: 'jinjaccalgkegednnccheecdegfnmekj'
+        }
       },
       {
         id: 'sponsorblock',
@@ -241,7 +292,17 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         description: 'Skip YouTube Sponsorships & Shoutouts.',
         badges: [],
         badgeTexts: {},
-        features: ['Open Source']
+        features: ['Open Source'],
+        extensionInstallUrls: {
+          chrome: 'https://chrome.google.com/webstore/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone',
+          firefox: 'https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/addon-9999999.xpi',
+          edge: 'https://microsoftedge.microsoft.com/addons/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone'
+        },
+        extensionIds: {
+          chrome: 'mnjggcdmjocbbbhaepdhchncahnbgone',
+          firefox: 'sponsorblock',
+          edge: 'mnjggcdmjocbbbhaepdhchncahnbgone'
+        }
       }
     ],
     'browser-userscripts': [
@@ -252,7 +313,18 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
         description: 'A Browser Userscript that enhances the UI and the functionality of cs.rin.ru. Make sure to enable SCS in the settings otherwise SCS forums are hidden by default.',
         badges: [],
         badgeTexts: {},
-        features: []
+        features: [],
+        userScriptUrl: 'https://raw.githubusercontent.com/SubZeroPL/cs-rin-ru-enhanced-mod/master/cs-rin-ru-enhanced-mod.user.js'
+      },
+      {
+        id: 'steamps',
+        title: 'SteamPS',
+        url: 'https://github.com/SubZeroPL/cs-rin-ru-enhanced-mod',
+        description: 'SteamPS (Steam Piracy Search), just a userscript that adds piracy search dl buttons.',
+        badges: ['trusted'],
+        badgeTexts: { trusted: 'Made by uchks' },
+        features: [],
+        userScriptUrl: 'https://github.com/uchks/SteamPS/raw/main/steamps.user.js'
       }
     ],
     informational: [

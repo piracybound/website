@@ -2,6 +2,7 @@ import React from 'react';
 import type { Resource } from '@/types';
 import { useResourceStatus } from '@/hooks/useResourceStatus';
 import { convertMarkdownToHtml } from '@/utils/markdown';
+import InstallButton from './InstallButton';
 
 interface ResourceCardProps {
   resource: Resource;
@@ -9,7 +10,7 @@ interface ResourceCardProps {
 }
 
 const ResourceCard: React.FC<ResourceCardProps> = ({ resource, onClick }) => {
-  const { title, url, description, badges, badgeTexts, features } = resource;
+  const { title, url, description, badges, badgeTexts, features, extensionInstallUrls, extensionIds, userScriptUrl } = resource;
   const { getResourceStatus, isChecking, checkResourceStatus } = useResourceStatus();
 
   const status = getResourceStatus(resource.id);
@@ -46,36 +47,37 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, onClick }) => {
 
     if (!status) return null;
 
-    switch (status.status) {
-      case 'online':
-        const isProtected = status.error && (
-          status.error.includes('Protected') ||
-          status.error.includes('403') ||
-          status.error.includes('429')
-        );
+    if (status.status === 'online') {
+      const isProtected = status.error && (
+        status.error.includes('Protected') ||
+        status.error.includes('403') ||
+        status.error.includes('429')
+      );
 
-        if (isProtected) {
-          return (
-            <div className="status-indicator protected" title={`Online (${status.error})${status.responseTime ? ` - ${status.responseTime}ms` : ''}`}>
-              <div className="status-dot"></div>
-            </div>
-          );
-        }
-
+      if (isProtected) {
         return (
-          <div className="status-indicator online" title={`Online${status.responseTime ? ` (${status.responseTime}ms)` : ''}`}>
+          <div className="status-indicator protected" title={`Online (${status.error})${status.responseTime ? ` - ${status.responseTime}ms` : ''}`}>
             <div className="status-dot"></div>
           </div>
         );
-      case 'offline':
-        return (
-          <div className="status-indicator offline" title={`Offline${status.error ? ` - ${status.error}` : ''}`}>
-            <div className="status-dot"></div>
-          </div>
-        );
-      default:
-        return null;
+      }
+
+      return (
+        <div className="status-indicator online" title={`Online${status.responseTime ? ` (${status.responseTime}ms)` : ''}`}>
+          <div className="status-dot"></div>
+        </div>
+      );
     }
+
+    if (status.status === 'offline') {
+      return (
+        <div className="status-indicator offline" title={`Offline${status.error ? ` - ${status.error}` : ''}`}>
+          <div className="status-dot"></div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -110,6 +112,29 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, onClick }) => {
 
         {description && (
           <div className="resource-description" dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(description) }} />
+        )}
+
+        {extensionInstallUrls && (
+          <div className="extension-install-container">
+            <InstallButton
+              type="extension"
+              extensionId={resource.id}
+              installUrls={extensionInstallUrls}
+              extensionIds={extensionIds}
+              title={title}
+            />
+          </div>
+        )}
+
+        {userScriptUrl && (
+          <div className="userscript-install-container">
+            <InstallButton
+              type="userscript"
+              scriptUrl={userScriptUrl}
+              title={title}
+              showInfoButton={false}
+            />
+          </div>
         )}
 
         {features && features.length > 0 && (
