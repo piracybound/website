@@ -63,7 +63,7 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
     {
       id: 'monkrus',
       title: 'm0nkrus',
-      url: 'https://w14.monkrus.ws/',
+      url: 'https://w16.monkrus.ws/',
       description: 'Trusted Adobe software site with clean, pre-cracked installations. Russian site but widely respected in the community.',
       badges: ['trusted', 'caution'],
       badgeTexts: { trusted: 'Trusted', caution: 'Windows Only' },
