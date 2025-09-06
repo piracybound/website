@@ -113,7 +113,7 @@ export const resources: Record<string, Resource[] | Record<string, Resource[]>> 
       {
         id: 'streameast',
         title: 'StreamEast',
-        url: 'https://the.streameast.app/',
+        url: 'https://v1.gostreameast.link/',
         description: 'Your free sports streaming home. Popular sports streaming site covering NFL, NBA, MLB, and more. Use uBlock Origin for the best experience.',
         badges: ['caution'],
         badgeTexts: { caution: 'Ads' },
